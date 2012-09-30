@@ -17,12 +17,31 @@ namespace Fantasy_Wars
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        ScreenManager screenManager;
+        // By preloading any assets used by UI rendering, we avoid framerate glitches
+        // when they suddenly need to be loaded in the middle of a menu transition.
+        static readonly string[] preloadAssets =
+        {
+            "gradient",
+        };
+
 
         public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 853;
+            graphics.PreferredBackBufferHeight = 480;
+
+            // Create the screen manager component.
+            screenManager = new ScreenManager(this);
+
+            Components.Add(screenManager);
+
+            // Activate the first screens.
+            screenManager.AddScreen(new BackgroundScreen(), null);
+            screenManager.AddScreen(new MainMenuScreen(), null);
         }
 
         /// <summary>
@@ -44,10 +63,10 @@ namespace Fantasy_Wars
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
+            foreach (string asset in preloadAssets)
+            {
+                Content.Load<object>(asset);
+            }
         }
 
         /// <summary>
@@ -81,10 +100,9 @@ namespace Fantasy_Wars
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            graphics.GraphicsDevice.Clear(Color.Black);
 
-            // TODO: Add your drawing code here
-
+            // The real drawing happens inside the screen manager component.
             base.Draw(gameTime);
         }
     }
