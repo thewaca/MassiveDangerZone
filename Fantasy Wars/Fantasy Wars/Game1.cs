@@ -11,6 +11,15 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Fantasy_Wars
 {
+    public class KeyEventArgs : EventArgs
+    {
+        public KeyEventArgs(Keys k)
+        {
+            key = k;
+        }
+        public Keys key;
+    }
+
     /// <summary>
     /// This is the main type for your game
     /// </summary>
@@ -37,6 +46,7 @@ namespace Fantasy_Wars
         {
             // TODO: Add your initialization logic here
             previousKeyboardState = Keyboard.GetState();
+            this.KeyUpEvent += HandleKeyUp;
 
             base.Initialize();
         }
@@ -62,13 +72,43 @@ namespace Fantasy_Wars
             // TODO: Unload any non ContentManager content here
         }
 
-        protected Boolean WasKeyPressed(Keys key)
+        public event EventHandler KeyDownEvent;
+        public event EventHandler KeyUpEvent;
+
+        protected void RaiseKeyEvent(Keys key, EventHandler keyEvent)
         {
-            if (previousKeyboardState.IsKeyDown(key) && currentKeyboardState.IsKeyUp(key))
+            EventHandler handler = keyEvent;
+            if (handler != null)
             {
-                return true;
+                handler(this, new KeyEventArgs(key));
             }
-            return false;
+        }
+
+        protected void RaiseKeyboardEvents(KeyboardState downKeys, KeyboardState upKeys, EventHandler eventToRaise)
+        {
+            foreach (Keys k in downKeys.GetPressedKeys())
+            {
+                if (upKeys.IsKeyUp(k))
+                {
+                    RaiseKeyEvent(k, eventToRaise);
+                }
+            }
+        }
+
+        protected void RaiseInputEvents()
+        {
+            RaiseKeyboardEvents(previousKeyboardState, currentKeyboardState, KeyUpEvent);
+            RaiseKeyboardEvents(currentKeyboardState, previousKeyboardState, KeyDownEvent);
+        }
+
+        void HandleKeyUp(object sender, EventArgs e)
+        {
+            switch(((KeyEventArgs)e).key)
+            {
+                case Keys.Escape:
+                    this.Exit();
+                    break;
+            }
         }
 
         /// <summary>
@@ -79,9 +119,8 @@ namespace Fantasy_Wars
         protected override void Update(GameTime gameTime)
         {
             currentKeyboardState = Keyboard.GetState();
-            // Allows the game to exit
-            if (WasKeyPressed(Keys.Back))
-                this.Exit();
+
+            RaiseInputEvents();
 
             // TODO: Add your update logic here
             previousKeyboardState = currentKeyboardState;
@@ -95,6 +134,8 @@ namespace Fantasy_Wars
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            SpriteBatch batch = new SpriteBatch(GraphicsDevice);
 
             // TODO: Add your drawing code here
 
