@@ -11,15 +11,6 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Fantasy_Wars
 {
-    public class KeyEventArgs : EventArgs
-    {
-        public KeyEventArgs(Keys k)
-        {
-            key = k;
-        }
-        public Keys key;
-    }
-
     /// <summary>
     /// This is the main type for your game
     /// </summary>
@@ -27,8 +18,7 @@ namespace Fantasy_Wars
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        KeyboardState currentKeyboardState;
-        KeyboardState previousKeyboardState;
+        InputEvents inputEvents;
 
         public Game1()
         {
@@ -45,8 +35,8 @@ namespace Fantasy_Wars
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            previousKeyboardState = Keyboard.GetState();
-            this.KeyUpEvent += HandleKeyUp;
+            inputEvents = new InputEvents(Keyboard.GetState(), Mouse.GetState());
+            inputEvents.RegisterForKeyUp(HandleKeyEscape, Keys.Escape);
 
             base.Initialize();
         }
@@ -72,43 +62,9 @@ namespace Fantasy_Wars
             // TODO: Unload any non ContentManager content here
         }
 
-        public event EventHandler KeyDownEvent;
-        public event EventHandler KeyUpEvent;
-
-        protected void RaiseKeyEvent(Keys key, EventHandler keyEvent)
+        void HandleKeyEscape(object sender, EventArgs e)
         {
-            EventHandler handler = keyEvent;
-            if (handler != null)
-            {
-                handler(this, new KeyEventArgs(key));
-            }
-        }
-
-        protected void RaiseKeyboardEvents(KeyboardState downKeys, KeyboardState upKeys, EventHandler eventToRaise)
-        {
-            foreach (Keys k in downKeys.GetPressedKeys())
-            {
-                if (upKeys.IsKeyUp(k))
-                {
-                    RaiseKeyEvent(k, eventToRaise);
-                }
-            }
-        }
-
-        protected void RaiseInputEvents()
-        {
-            RaiseKeyboardEvents(previousKeyboardState, currentKeyboardState, KeyUpEvent);
-            RaiseKeyboardEvents(currentKeyboardState, previousKeyboardState, KeyDownEvent);
-        }
-
-        void HandleKeyUp(object sender, EventArgs e)
-        {
-            switch(((KeyEventArgs)e).key)
-            {
-                case Keys.Escape:
-                    this.Exit();
-                    break;
-            }
+            this.Exit();
         }
 
         /// <summary>
@@ -118,12 +74,9 @@ namespace Fantasy_Wars
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            currentKeyboardState = Keyboard.GetState();
-
-            RaiseInputEvents();
+            inputEvents.RaiseInputEvents(Keyboard.GetState(), Mouse.GetState());
 
             // TODO: Add your update logic here
-            previousKeyboardState = currentKeyboardState;
             base.Update(gameTime);
         }
 
