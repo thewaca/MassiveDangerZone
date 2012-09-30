@@ -23,7 +23,7 @@ namespace Fantasy_Wars.ScreenManagement
     {
         #region Properties
 
-        protected List<KeyBinding> bindings;
+        protected List<KeyBinding> bindings = new List<KeyBinding>();
 
         /// <summary>
         /// Normally when one screen is brought up over the top of another,
