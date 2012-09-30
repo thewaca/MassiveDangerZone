@@ -14,6 +14,11 @@ namespace Fantasy_Wars
         private Vector3 position;
         private Vector2 dimensions;
 
+        public Tile(Game1 game) : base(game)
+        {
+            
+        }
+
         protected override void LoadContent()
         {
             base.LoadContent();
