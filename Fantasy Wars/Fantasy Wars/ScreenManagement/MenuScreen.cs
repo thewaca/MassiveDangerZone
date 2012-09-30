@@ -56,10 +56,10 @@ namespace Fantasy_Wars
         /// Responds to user input, changing the selected entry and accepting
         /// or cancelling the menu.
         /// </summary>
-        public override void HandleInput(InputState input)
+        public override void HandleInput()
         {
             // Move to the previous menu entry?
-            if (input.IsMenuUp(ControllingPlayer))
+            /*if (input.IsMenuUp(ControllingPlayer))
             {
                 selectedEntry--;
 
@@ -74,7 +74,7 @@ namespace Fantasy_Wars
 
                 if (selectedEntry >= menuEntries.Count)
                     selectedEntry = 0;
-            }
+            }*/
 
             // Accept or cancel the menu? We pass in our ControllingPlayer, which may
             // either be null (to accept input from any player) or a specific index.
@@ -83,14 +83,14 @@ namespace Fantasy_Wars
             // OnSelectEntry and OnCancel, so they can tell which player triggered them.
             PlayerIndex playerIndex;
 
-            if (input.IsMenuSelect(ControllingPlayer, out playerIndex))
+            /*if (input.IsMenuSelect(ControllingPlayer, out playerIndex))
             {
                 OnSelectEntry(selectedEntry, playerIndex);
             }
             else if (input.IsMenuCancel(ControllingPlayer, out playerIndex))
             {
                 OnCancel(playerIndex);
-            }
+            }*/
         }
 
 
@@ -115,9 +115,9 @@ namespace Fantasy_Wars
         /// <summary>
         /// Helper overload makes it easy to use OnCancel as a MenuEntry event handler.
         /// </summary>
-        protected void OnCancel(object sender, PlayerIndexEventArgs e)
+        protected void OnCancel(object sender, EventArgs e)
         {
-            OnCancel(e.PlayerIndex);
+            OnCancel(PlayerIndex.One);
         }
 
 

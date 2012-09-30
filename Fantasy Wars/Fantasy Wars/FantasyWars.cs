@@ -80,7 +80,7 @@ namespace Fantasy_Wars
             // TODO: Unload any non ContentManager content here
         }
 
-        void HandleKeyEscape(object sender, EventArgs e)
+        void HandleKeyEscape(object sender, KeyEventArgs e)
         {
             this.Exit();
         }

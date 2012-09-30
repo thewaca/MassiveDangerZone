@@ -163,9 +163,10 @@ pip-log.txt
 .DS_Store
 
 #############
-## Git stuff
+## Generic stuff
 #############
 *.BACKUP.*
 *.BASE.*
 *.LOCAL.*
 *.REMOTE.*
+*.cachefile

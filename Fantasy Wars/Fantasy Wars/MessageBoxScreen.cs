@@ -19,8 +19,8 @@ namespace Fantasy_Wars
 
         #region Events
 
-        public event EventHandler<PlayerIndexEventArgs> Accepted;
-        public event EventHandler<PlayerIndexEventArgs> Cancelled;
+        public event EventHandler Accepted;
+        public event EventHandler Cancelled;
 
         #endregion
 
@@ -79,7 +79,7 @@ namespace Fantasy_Wars
         /// <summary>
         /// Responds to user input, accepting or cancelling the message box.
         /// </summary>
-        public override void HandleInput(InputState input)
+        public override void HandleInput()
         {
             PlayerIndex playerIndex;
 
@@ -88,11 +88,11 @@ namespace Fantasy_Wars
             // controlling player, the InputState helper returns to us which player
             // actually provided the input. We pass that through to our Accepted and
             // Cancelled events, so they can tell which player triggered them.
-            if (input.IsMenuSelect(ControllingPlayer, out playerIndex))
+            /*if (input.IsMenuSelect(ControllingPlayer, out playerIndex))
             {
                 // Raise the accepted event, then exit the message box.
                 if (Accepted != null)
-                    Accepted(this, new PlayerIndexEventArgs(playerIndex));
+                    Accepted(this, new EventArgs());
 
                 ExitScreen();
             }
@@ -100,10 +100,10 @@ namespace Fantasy_Wars
             {
                 // Raise the cancelled event, then exit the message box.
                 if (Cancelled != null)
-                    Cancelled(this, new PlayerIndexEventArgs(playerIndex));
+                    Cancelled(this, new EventArgs());
 
                 ExitScreen();
-            }
+            }*/
         }
 
 

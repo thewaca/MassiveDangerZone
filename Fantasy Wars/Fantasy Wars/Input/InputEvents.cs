@@ -21,12 +21,14 @@ namespace Fantasy_Wars
         public Keys key;
     }
 
+    public delegate void KeyEventHandler(Object sender, KeyEventArgs e);
+
     public class InputEvents
     {
-        private event EventHandler KeyDownEvent;
-        private Dictionary<Keys, List<EventHandler>> targetedKeyDownEvents;
-        private event EventHandler KeyUpEvent;
-        private Dictionary<Keys, List<EventHandler>> targetedKeyUpEvents;
+        private event KeyEventHandler KeyDownEvent;
+        private Dictionary<Keys, List<KeyEventHandler>> targetedKeyDownEvents;
+        private event KeyEventHandler KeyUpEvent;
+        private Dictionary<Keys, List<KeyEventHandler>> targetedKeyUpEvents;
 
         private KeyboardState previousKeyboardState;
         private MouseState previousMouseState;
@@ -35,81 +37,86 @@ namespace Fantasy_Wars
         {
             previousKeyboardState = initialKeyboardState;
             previousMouseState = initialMouseState;
+            targetedKeyDownEvents = new Dictionary<Keys,List<KeyEventHandler>>();
+            targetedKeyUpEvents = new Dictionary<Keys, List<KeyEventHandler>>();
         }
 
-        public void RegisterForKeyDown(EventHandler eventHandler, Keys target)
+        public void RegisterForKeyDown(KeyEventHandler eventHandler, Keys target)
         {
-            if (targetedKeyDownEvents[target] == null)
+            if (!targetedKeyDownEvents.ContainsKey(target))
             {
-                targetedKeyDownEvents[target] = new List<EventHandler>();
+                targetedKeyDownEvents.Add(target, new List<KeyEventHandler>());
             }
             targetedKeyDownEvents[target].Add(eventHandler);
         }
 
-        public void RegisterForKeyDown(EventHandler eventHandler)
+        public void RegisterForKeyDown(KeyEventHandler eventHandler)
         {
             KeyDownEvent += eventHandler;
         }
 
-        public void UnRegisterForKeyDown(EventHandler eventHandler, Keys target)
+        public void UnRegisterForKeyDown(KeyEventHandler eventHandler, Keys target)
         {
-            if (targetedKeyDownEvents[target] != null)
+            if (targetedKeyDownEvents.ContainsKey(target))
             {
                 targetedKeyDownEvents[target].Remove(eventHandler);
             }
         }
 
-        public void UnRegisterForKeyDown(EventHandler eventHandler)
+        public void UnRegisterForKeyDown(KeyEventHandler eventHandler)
         {
             KeyDownEvent -= eventHandler;
         }
 
-        public void RegisterForKeyUp(EventHandler eventHandler, Keys target)
+        public void RegisterForKeyUp(KeyEventHandler eventHandler, Keys target)
         {
-            if (targetedKeyUpEvents[target] == null)
+            if (!targetedKeyUpEvents.ContainsKey(target))
             {
-                targetedKeyUpEvents[target] = new List<EventHandler>();
+                targetedKeyUpEvents.Add(target, new List<KeyEventHandler>());
             }
             targetedKeyUpEvents[target].Add(eventHandler);
         }
 
-        public void RegisterForKeyUp(EventHandler eventHandler)
+        public void RegisterForKeyUp(KeyEventHandler eventHandler)
         {
             KeyUpEvent += eventHandler;
         }
 
-        public void UnRegisterForKeyUp(EventHandler eventHandler, Keys target)
+        public void UnRegisterForKeyUp(KeyEventHandler eventHandler, Keys target)
         {
-            if (targetedKeyUpEvents[target] != null)
+            if (targetedKeyUpEvents.ContainsKey(target))
             {
                 targetedKeyUpEvents[target].Remove(eventHandler);
             }
         }
 
-        public void UnRegisterForKeyUp(EventHandler eventHandler)
+        public void UnRegisterForKeyUp(KeyEventHandler eventHandler)
         {
             KeyUpEvent -= eventHandler;
         }
 
-        protected void RaiseKeyEvent(Keys key, EventHandler keyEvent)
+        protected void RaiseKeyEvent(Keys key, KeyEventHandler keyEvent)
         {
-            EventHandler handler = keyEvent;
+            KeyEventHandler handler = keyEvent;
             if (handler != null)
             {
                 handler(this, new KeyEventArgs(key));
             }
         }
 
-        protected void RaiseKeyboardEvents(KeyboardState downKeys, KeyboardState upKeys, EventHandler eventToRaise, Dictionary<Keys, List<EventHandler>> targetEvents)
+        protected void RaiseKeyboardEvents(KeyboardState downKeys, KeyboardState upKeys, KeyEventHandler eventToRaise, Dictionary<Keys, List<KeyEventHandler>> targetEvents)
         {
             foreach (Keys k in downKeys.GetPressedKeys())
             {
                 if (upKeys.IsKeyUp(k))
                 {
                     RaiseKeyEvent(k, eventToRaise);
-                    foreach (EventHandler handler in targetEvents[k])
+                    if (targetEvents.ContainsKey(k))
                     {
-                        handler(this, new KeyEventArgs(k));
+                        foreach (KeyEventHandler handler in targetEvents[k])
+                        {
+                            handler(this, new KeyEventArgs(k));
+                        }
                     }
                 }
             }

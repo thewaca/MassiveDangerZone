@@ -42,9 +42,9 @@ namespace Fantasy_Wars
         /// <summary>
         /// Event handler for when the Play Game menu entry is selected.
         /// </summary>
-        void PlayGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)
+        void PlayGameMenuEntrySelected(object sender, EventArgs e)
         {
-            LoadingScreen.Load(ScreenManager, true, e.PlayerIndex,
+            LoadingScreen.Load(ScreenManager, true, PlayerIndex.One,
                                new GameplayScreen());
         }
 
@@ -52,9 +52,9 @@ namespace Fantasy_Wars
         /// <summary>
         /// Event handler for when the Options menu entry is selected.
         /// </summary>
-        void OptionsMenuEntrySelected(object sender, PlayerIndexEventArgs e)
+        void OptionsMenuEntrySelected(object sender, EventArgs e)
         {
-            ScreenManager.AddScreen(new OptionsMenuScreen(), e.PlayerIndex);
+            ScreenManager.AddScreen(new OptionsMenuScreen(), PlayerIndex.One);
         }
 
 
@@ -77,7 +77,7 @@ namespace Fantasy_Wars
         /// Event handler for when the user selects ok on the "are you sure
         /// you want to exit" message box.
         /// </summary>
-        void ConfirmExitMessageBoxAccepted(object sender, PlayerIndexEventArgs e)
+        void ConfirmExitMessageBoxAccepted(object sender, EventArgs e)
         {
             ScreenManager.Game.Exit();
         }

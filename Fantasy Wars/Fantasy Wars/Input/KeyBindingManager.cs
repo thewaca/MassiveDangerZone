@@ -18,14 +18,16 @@ namespace Fantasy_Wars.Input
             set
             {
                 if (_pauseBinding != Keys.None)
-                    this.eventSource.unregisterForKeyDown(_pauseBinding, new EventHandler<EventArgs>(this.pausedKeyPressed));
+                {
+                    this.eventSource.UnRegisterForKeyDown(this.pausedKeyPressed, _pauseBinding);
+                }
 
-                this.eventSource.registerForKeyDown(value, new EventHandler<EventArgs>(this.pausedKeyPressed));
+                this.eventSource.RegisterForKeyDown(this.pausedKeyPressed, value);
                 _pauseBinding = value;
             }
         }
 
-        void pausedKeyPressed(object sender, EventArgs e)
+        void pausedKeyPressed(object sender, KeyEventArgs e)
         {
 
         }

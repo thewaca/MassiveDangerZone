@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Fantasy_Wars
 {
@@ -62,7 +63,7 @@ namespace Fantasy_Wars
         /// <summary>
         /// Event raised when the menu entry is selected.
         /// </summary>
-        public event EventHandler<PlayerIndexEventArgs> Selected;
+        public event EventHandler Selected;
 
 
         /// <summary>
@@ -71,7 +72,7 @@ namespace Fantasy_Wars
         protected internal virtual void OnSelectEntry(PlayerIndex playerIndex)
         {
             if (Selected != null)
-                Selected(this, new PlayerIndexEventArgs(playerIndex));
+                Selected(this, new EventArgs());
         }
 
 

@@ -17,8 +17,6 @@ namespace Fantasy_Wars
         List<GameScreen> screens = new List<GameScreen>();
         List<GameScreen> screensToUpdate = new List<GameScreen>();
 
-        InputState input = new InputState();
-
         SpriteBatch spriteBatch;
         SpriteFont font;
         Texture2D blankTexture;
@@ -135,9 +133,6 @@ namespace Fantasy_Wars
         /// </summary>
         public override void Update(GameTime gameTime)
         {
-            // Read the keyboard and gamepad.
-            input.Update();
-
             // Make a copy of the master screen list, to avoid confusion if
             // the process of updating one screen adds or removes others.
             screensToUpdate.Clear();
@@ -166,7 +161,7 @@ namespace Fantasy_Wars
                     // give it a chance to handle input.
                     if (!otherScreenHasFocus)
                     {
-                        screen.HandleInput(input);
+                        screen.HandleInput();
 
                         otherScreenHasFocus = true;
                     }
