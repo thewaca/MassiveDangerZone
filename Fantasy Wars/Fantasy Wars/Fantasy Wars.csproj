@@ -111,7 +111,7 @@
     <Compile Include="Army.cs" />
     <Compile Include="BackgroundScreen.cs" />
     <Compile Include="Input\InputEvents.cs" />
-    <Compile Include="Input\KeyBindingManager.cs" />
+    <Compile Include="Input\KeyBinding.cs" />
     <Compile Include="ScreenManagement\GameplayScreen.cs" />
     <Compile Include="ScreenManagement\GameScreen.cs" />
     <Compile Include="LoadingScreen.cs" />
