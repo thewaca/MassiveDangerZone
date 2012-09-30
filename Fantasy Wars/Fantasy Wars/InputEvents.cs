@@ -107,6 +107,10 @@ namespace Fantasy_Wars
                 if (upKeys.IsKeyUp(k))
                 {
                     RaiseKeyEvent(k, eventToRaise);
+                    foreach (EventHandler handler in targetEvents[k])
+                    {
+                        handler(this, new KeyEventArgs(k));
+                    }
                 }
             }
         }
