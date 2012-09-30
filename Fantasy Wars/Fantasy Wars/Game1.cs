@@ -18,6 +18,8 @@ namespace Fantasy_Wars
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        KeyboardState currentKeyboardState;
+        KeyboardState previousKeyboardState;
 
         public Game1()
         {
@@ -34,6 +36,7 @@ namespace Fantasy_Wars
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            previousKeyboardState = Keyboard.GetState();
 
             base.Initialize();
         }
@@ -59,6 +62,15 @@ namespace Fantasy_Wars
             // TODO: Unload any non ContentManager content here
         }
 
+        protected Boolean WasKeyPressed(Keys key)
+        {
+            if (previousKeyboardState.IsKeyDown(key) && currentKeyboardState.IsKeyUp(key))
+            {
+                return true;
+            }
+            return false;
+        }
+
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
@@ -66,12 +78,13 @@ namespace Fantasy_Wars
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            currentKeyboardState = Keyboard.GetState();
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if (WasKeyPressed(Keys.Back))
                 this.Exit();
 
             // TODO: Add your update logic here
-
+            previousKeyboardState = currentKeyboardState;
             base.Update(gameTime);
         }
 
