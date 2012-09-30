@@ -26,7 +26,7 @@ namespace Fantasy_Wars
         {
             "gradient",
         };
-        InputEvents inputEvents;
+        public InputEvents inputEvents;
 
         public FantasyWars()
         {
