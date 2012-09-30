@@ -24,7 +24,7 @@ namespace Fantasy_Wars
         {
             "gradient",
         };
-
+        InputEvents inputEvents;
 
         public Game1()
         {
@@ -53,6 +53,8 @@ namespace Fantasy_Wars
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            inputEvents = new InputEvents(Keyboard.GetState(), Mouse.GetState());
+            inputEvents.RegisterForKeyUp(HandleKeyEscape, Keys.Escape);
 
             base.Initialize();
         }
@@ -78,6 +80,11 @@ namespace Fantasy_Wars
             // TODO: Unload any non ContentManager content here
         }
 
+        void HandleKeyEscape(object sender, EventArgs e)
+        {
+            this.Exit();
+        }
+
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
@@ -85,12 +92,9 @@ namespace Fantasy_Wars
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
+            inputEvents.RaiseInputEvents(Keyboard.GetState(), Mouse.GetState());
 
             // TODO: Add your update logic here
-
             base.Update(gameTime);
         }
 

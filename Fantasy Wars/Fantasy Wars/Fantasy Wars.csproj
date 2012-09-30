@@ -113,6 +113,7 @@
     <Compile Include="GameScreen.cs" />
     <Compile Include="LoadingScreen.cs" />
     <Compile Include="MainMenuScreen.cs" />
+    <Compile Include="InputEvents.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="MenuEntry.cs" />
     <Compile Include="MenuScreen.cs" />
