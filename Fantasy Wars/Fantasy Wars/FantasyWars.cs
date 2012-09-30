@@ -14,7 +14,7 @@ namespace Fantasy_Wars
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Game1 : Microsoft.Xna.Framework.Game
+    public class FantasyWars : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
         ScreenManager screenManager;
@@ -26,7 +26,7 @@ namespace Fantasy_Wars
         };
 
 
-        public Game1()
+        public FantasyWars()
         {
             Content.RootDirectory = "Content";
 

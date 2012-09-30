@@ -17,7 +17,7 @@ namespace Fantasy_Wars
 
         private Texture2D texture;
 
-        public Tile(Game1 game, Color color, Vector3 position, SpriteBatch spriteBatch) : base(game)
+        public Tile(FantasyWars game, Color color, Vector3 position, SpriteBatch spriteBatch) : base(game)
         {
             this.color = color;
             this.position = position;

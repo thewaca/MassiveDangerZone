@@ -12,7 +12,7 @@ namespace Fantasy_Wars
         private Tile[,] tiles;
         SpriteBatch spriteBatch;
 
-        public Map(Game1 game) : base(game)
+        public Map(FantasyWars game) : base(game)
         {
         }
 
