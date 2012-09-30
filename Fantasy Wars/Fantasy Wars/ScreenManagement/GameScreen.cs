@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Fantasy_Wars.Input;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 
-namespace Fantasy_Wars
+namespace Fantasy_Wars.ScreenManagement
 {
     /// <summary>
     /// Enum describes the screen transition state.
@@ -23,6 +23,7 @@ namespace Fantasy_Wars
     {
         #region Properties
 
+        private KeyBinding[] bindings;
 
         /// <summary>
         /// Normally when one screen is brought up over the top of another,
@@ -200,13 +201,25 @@ namespace Fantasy_Wars
         /// <summary>
         /// Load graphics content for the screen.
         /// </summary>
-        public virtual void LoadContent() { }
+        public virtual void LoadContent()
+        {
+            foreach (var keyBinding in bindings)
+            {
+                keyBinding.Register();
+            }
+        }
 
 
         /// <summary>
         /// Unload content for the screen.
         /// </summary>
-        public virtual void UnloadContent() { }
+        public virtual void UnloadContent()
+        {
+            foreach (var keyBinding in bindings)
+            {
+                keyBinding.UnRegister();
+            }
+        }
 
 
         #endregion
@@ -313,7 +326,6 @@ namespace Fantasy_Wars
         #endregion
 
         #region Public Methods
-
 
         /// <summary>
         /// Tells the screen to go away. Unlike ScreenManager.RemoveScreen, which
