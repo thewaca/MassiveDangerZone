@@ -9,16 +9,24 @@ namespace Fantasy_Wars
 {
     class Map : DrawableGameComponent
     {
-        private Tile[,] tiles;
+        private readonly Tile[,] tiles = new Tile[10,10];
         SpriteBatch spriteBatch;
 
-        public Map(FantasyWars game) : base(game)
+        public Map(Game game) : base(game)
         {
         }
 
         protected override void LoadContent()
         {
             this.spriteBatch = new SpriteBatch(Game.GraphicsDevice);
+
+            for(var x = 0; x < 10; x++)
+            {
+                for (int y = 0; y < 10; y++)
+                {
+                    tiles[x,y] = new Tile(this.Game, Color.Green, new Vector3(x, y, 0), spriteBatch);
+                }
+            }
 
             base.LoadContent();
         }
