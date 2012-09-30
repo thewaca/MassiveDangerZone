@@ -13,7 +13,27 @@ namespace Fantasy_Wars.Input
         public Keys key;
     }
 
+    public enum MouseButton
+    {
+        Left,
+        Right,
+        Middle,
+        X1,
+        X2,
+    }
+
+    public class MouseEventArgs : EventArgs
+    {
+        public MouseEventArgs(MouseButton m, Int32 X, Int32 Y, Int32 Scroll)
+        {
+            mouse = m;
+        }
+        public MouseButton mouse;
+        public Int32 X, Y, Scroll;
+    }
+    
     public delegate void KeyEventHandler(Object sender, KeyEventArgs e);
+    public delegate void MouseEventHandler(Object sender, MouseEventArgs e);
 
     public class InputEvents
     {
@@ -21,6 +41,10 @@ namespace Fantasy_Wars.Input
         private Dictionary<Keys, List<KeyEventHandler>> targetedKeyDownEvents;
         private event KeyEventHandler KeyUpEvent;
         private Dictionary<Keys, List<KeyEventHandler>> targetedKeyUpEvents;
+
+
+        private event MouseEventHandler MouseDownEvent;
+        private event MouseEventHandler MouseUpEvent;
 
         private KeyboardState previousKeyboardState;
         private MouseState previousMouseState;
@@ -114,9 +138,43 @@ namespace Fantasy_Wars.Input
             }
         }
 
+        protected void RaiseMouseEvent(MouseButton button, MouseState ms, MouseEventHandler mouseEvent)
+        {
+            MouseEventHandler handler = mouseEvent;
+            if (handler != null)
+            {
+                handler(this, new MouseEventArgs(button, ms.X, ms.Y, ms.ScrollWheelValue));
+            }
+        }
+
         protected void RaiseMouseClickEvents(MouseState currentMouseState, MouseState previousMouseState)
         {
+            if (currentMouseState.LeftButton == ButtonState.Released && previousMouseState.LeftButton == ButtonState.Pressed)
+            {
+                RaiseMouseEvent(MouseButton.Left, currentMouseState, MouseUpEvent);
+            }
+            else if (currentMouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton == ButtonState.Released)
+            {
+                RaiseMouseEvent(MouseButton.Left, currentMouseState, MouseDownEvent);
+            }
 
+            if (currentMouseState.RightButton == ButtonState.Released && previousMouseState.RightButton == ButtonState.Pressed)
+            {
+                RaiseMouseEvent(MouseButton.Right, currentMouseState, MouseUpEvent);
+            }
+            else if (currentMouseState.RightButton == ButtonState.Pressed && previousMouseState.RightButton == ButtonState.Released)
+            {
+                RaiseMouseEvent(MouseButton.Right, currentMouseState, MouseDownEvent);
+            }
+
+            if (currentMouseState.MiddleButton == ButtonState.Released && previousMouseState.MiddleButton == ButtonState.Pressed)
+            {
+                RaiseMouseEvent(MouseButton.Middle, currentMouseState, MouseUpEvent);
+            }
+            else if (currentMouseState.MiddleButton == ButtonState.Pressed && previousMouseState.MiddleButton == ButtonState.Released)
+            {
+                RaiseMouseEvent(MouseButton.Middle, currentMouseState, MouseDownEvent);
+            }
         }
 
         public void RaiseInputEvents(KeyboardState currentKeyboardState, MouseState currentMouseState)
