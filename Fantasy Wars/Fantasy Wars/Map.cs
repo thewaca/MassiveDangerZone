@@ -9,5 +9,10 @@ namespace Fantasy_Wars
     class Map : DrawableGameComponent
     {
         private Tile[,] tiles;
+
+        public Map(Game1 game) : base(game)
+        {
+            
+        }
     }
 }
