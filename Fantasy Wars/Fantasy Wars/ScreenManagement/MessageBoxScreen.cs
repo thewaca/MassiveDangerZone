@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Fantasy_Wars.Input;
 using Microsoft.Xna.Framework.Input;
-using Fantasy_Wars.ScreenManagement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Fantasy_Wars
+namespace Fantasy_Wars.ScreenManagement
 {
     class MessageBoxScreen:GameScreen
     {
