@@ -12,7 +12,7 @@ namespace Fantasy_Wars
         private readonly Color color;
 
         private readonly Vector3 position;
-        private readonly Vector2 dimensions = new Vector2(64, 32);
+        private readonly Vector3 dimensions = new Vector3(64, 32, 40);
         private readonly SpriteBatch spriteBatch;
 
         private Texture2D texture;
@@ -36,13 +36,21 @@ namespace Fantasy_Wars
         public override void Draw(GameTime gameTime)
         {
             var windowWidth = this.Game.GraphicsDevice.Viewport.Width;
-            var originX = windowWidth/2;
-            var originY = 0;
-            var x = originX + this.position.X*this.dimensions.X / 2;
-            x -= this.position.Y*this.dimensions.X / 2;
 
-            var y = originY + this.position.Y*this.dimensions.Y / 2;
-            y += this.position.X*this.dimensions.Y / 2;
+            var width = this.dimensions.X/2;
+            var height = this.dimensions.Y/2;
+            var depth = this.dimensions.Z;
+
+            var originX = windowWidth/2;
+            const int originY = 20;
+
+            var x = this.position.X;
+            var y = this.position.Y;
+            var z = this.position.Z;
+
+            x = originX + x * width - y * width;
+            y = originY + y * height + x * height;
+            y -= z * depth;
 
             this.spriteBatch.Draw(this.texture, new Vector2(x, y), this.color);
 
