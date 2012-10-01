@@ -6,30 +6,28 @@ using Fantasy_Wars.ScreenManagement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using GameComponent = Fantasy_Wars.ScreenManagement.GameComponent;
+using DrawableGameComponent = Fantasy_Wars.Components.DrawableGameComponent;
 
 namespace Fantasy_Wars
 {
-    class Map : GameComponent
+    class Map : DrawableGameComponent
     {
-        private readonly GameScreen _screen;
         private readonly Tile[,] tiles = new Tile[10,10];
         SpriteBatch _spriteBatch;
 
         public Map(GameScreen screen) : base(screen)
         {
-            _screen = screen;
         }
 
         public override void LoadContent(ContentManager contentManager)
         {
-            this._spriteBatch = new SpriteBatch(_screen.ScreenManager.Game.GraphicsDevice);
+            this._spriteBatch = new SpriteBatch(Screen.ScreenManager.Game.GraphicsDevice);
 
             for(var x = 0; x < 10; x++)
             {
                 for (int y = 0; y < 10; y++)
                 {
-                    var tile = new Tile(_screen, Color.White, new Vector3(x, y, 0));
+                    var tile = new Tile(Screen, new Vector3(x, y, 0));
                     tile.LoadContent(contentManager);
                     tiles[x,y] = tile;
                 }
