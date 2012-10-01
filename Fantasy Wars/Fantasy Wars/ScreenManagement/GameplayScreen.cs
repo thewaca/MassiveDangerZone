@@ -45,7 +45,7 @@ namespace Fantasy_Wars.ScreenManagement
         {
             var game = (FantasyWars) ScreenManager.Game;
 
-            bindings.Add(new KeyBinding(inputEvents, Keys.Escape, this.HandlePause));
+            bindings.Add(new KeyBinding(inputEvents, Keys.Escape, this.HandlePause, KeyState.Down));
 
             if (_content == null)
                 _content = new ContentManager(ScreenManager.Game.Services, "Content");
