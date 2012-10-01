@@ -98,7 +98,8 @@ namespace Fantasy_Wars
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            inputEvents.RaiseInputEvents(Keyboard.GetState(), Mouse.GetState());
+            inputEvents.UpdateInputState(Keyboard.GetState(), Mouse.GetState());
+            inputEvents.RaiseInputEvents();
 
             // TODO: Add your update logic here
             base.Update(gameTime);

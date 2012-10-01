@@ -51,11 +51,15 @@ namespace Fantasy_Wars.Input
         public event MouseEventHandler MouseUpEvent;
         public event MouseEventHandler MouseMoveEvent;
 
+        private KeyboardState currentKeyboardState;
+        private MouseState currentMouseState;
         private KeyboardState previousKeyboardState;
         private MouseState previousMouseState;
 
         public InputEvents(KeyboardState initialKeyboardState, MouseState initialMouseState)
         {
+            currentKeyboardState = initialKeyboardState;
+            currentMouseState = initialMouseState;
             previousKeyboardState = initialKeyboardState;
             previousMouseState = initialMouseState;
             targetedKeyDownEvents = new Dictionary<Keys,List<KeyEventHandler>>();
@@ -184,14 +188,21 @@ namespace Fantasy_Wars.Input
             RaiseMouseMoveEvents(currentMouseState, previousMouseState);
         }
 
-        public void RaiseInputEvents(KeyboardState currentKeyboardState, MouseState currentMouseState)
+        public void RaiseInputEvents()
         {
             RaiseKeyboardEvents(previousKeyboardState, currentKeyboardState, KeyUpEvent, targetedKeyUpEvents);
             RaiseKeyboardEvents(currentKeyboardState, previousKeyboardState, KeyDownEvent, targetedKeyDownEvents);
-            previousKeyboardState = currentKeyboardState;
 
             RaiseMouseEvents(currentMouseState, previousMouseState);
+        }
+
+        public void UpdateInputState(KeyboardState currKeyState, MouseState currMouseState)
+        {
+            previousKeyboardState = currentKeyboardState;
             previousMouseState = currentMouseState;
+
+            currentKeyboardState = currKeyState;
+            currentMouseState = currMouseState;
         }
     }
 }
