@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using Fantasy_Wars.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -12,20 +11,20 @@ namespace Fantasy_Wars.ScreenManagement
     {
         #region Fields
 
-        ContentManager content;
-        SpriteFont gameFont;
+        private ContentManager _content;
+        private SpriteFont _gameFont;
 
-        Random random = new Random();
+        private Random _random = new Random();
 
-        float pauseAlpha;
+        private float _pauseAlpha;
 
-        private Map map;
+        private Map _map;
 
         #endregion
 
         #region Initialization
         
-        void handlePause(object sender, KeyEventArgs e) {
+        void HandlePause(object sender, KeyEventArgs e) {
             ScreenManager.AddScreen(new PauseMenuScreen(), ControllingPlayer);
         }
 
@@ -47,16 +46,16 @@ namespace Fantasy_Wars.ScreenManagement
             var game = (FantasyWars) ScreenManager.Game;
             var inputEvents = game.inputEvents;
 
-            bindings.Add(new KeyBinding(inputEvents, Keys.Escape, this.handlePause));
+            bindings.Add(new KeyBinding(inputEvents, Keys.Escape, this.HandlePause));
 
-            if (content == null)
-                content = new ContentManager(ScreenManager.Game.Services, "Content");
+            if (_content == null)
+                _content = new ContentManager(ScreenManager.Game.Services, "Content");
 
-            gameFont = content.Load<SpriteFont>("gamefont");
+            _gameFont = _content.Load<SpriteFont>("gamefont");
 
-            map = new Map(ScreenManager.Game);
+            _map = new Map(this);
 
-            map.Initialize();
+            _map.LoadContent(_content);
 
             // once the load has finished, we use ResetElapsedTime to tell the game's
             // timing mechanism that we have just finished a very long frame, and that
@@ -72,7 +71,7 @@ namespace Fantasy_Wars.ScreenManagement
         /// </summary>
         public override void UnloadContent()
         {
-            content.Unload();
+            _content.Unload();
 
             base.UnloadContent();
         }
@@ -91,7 +90,7 @@ namespace Fantasy_Wars.ScreenManagement
         public override void Update(GameTime gameTime, bool otherScreenHasFocus,
                                                        bool coveredByOtherScreen)
         {
-            this.map.Update(gameTime);
+            this._map.Update(gameTime);
         }
 
 
@@ -109,7 +108,7 @@ namespace Fantasy_Wars.ScreenManagement
         /// </summary>
         public override void Draw(GameTime gameTime)
         {
-            this.map.Draw(gameTime);
+            this._map.Draw(gameTime, ScreenManager.SpriteBatch);
         }
 
 
