@@ -28,20 +28,21 @@ namespace Fantasy_Wars
         {
             var contentManager = this.Game.Content;
 
-            this.texture = contentManager.Load<Texture2D>("grass.png");
+            this.texture = contentManager.Load<Texture2D>("grass");
 
             base.LoadContent();
         }
 
         public override void Draw(GameTime gameTime)
         {
-            var x = this.position.X;
-            x *= this.dimensions.X;
-            // center it
-            x -= this.dimensions.X/2;
+            var windowWidth = this.Game.GraphicsDevice.Viewport.Width;
+            var originX = windowWidth/2;
+            var originY = 0;
+            var x = originX + this.position.X*this.dimensions.X / 2;
+            x -= this.position.Y*this.dimensions.X / 2;
 
-            var y = this.position.Y;
-            y *= this.dimensions.Y;
+            var y = originY + this.position.Y*this.dimensions.Y / 2;
+            y += this.position.X*this.dimensions.Y / 2;
 
             this.spriteBatch.Draw(this.texture, new Vector2(x, y), this.color);
 

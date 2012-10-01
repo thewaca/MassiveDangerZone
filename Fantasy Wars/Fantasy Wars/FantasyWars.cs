@@ -32,9 +32,11 @@ namespace Fantasy_Wars
         {
             Content.RootDirectory = "Content";
 
-            graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 853;
-            graphics.PreferredBackBufferHeight = 480;
+            graphics = new GraphicsDeviceManager(this)
+                           {
+                               PreferredBackBufferWidth = 853,
+                               PreferredBackBufferHeight = 480
+                           };
 
             // Create the screen manager component.
             screenManager = new ScreenManager(this);

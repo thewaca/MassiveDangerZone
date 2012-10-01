@@ -36,8 +36,6 @@ namespace Fantasy_Wars.ScreenManagement
         {
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
-
-            bindings.Add(new KeyBinding(((FantasyWars)ScreenManager.Game).inputEvents, Keys.Escape, this.handlePause));
         }
 
 
@@ -46,6 +44,11 @@ namespace Fantasy_Wars.ScreenManagement
         /// </summary>
         public override void LoadContent()
         {
+            var game = (FantasyWars) ScreenManager.Game;
+            var inputEvents = game.inputEvents;
+
+            bindings.Add(new KeyBinding(inputEvents, Keys.Escape, this.handlePause));
+
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
 
@@ -53,10 +56,14 @@ namespace Fantasy_Wars.ScreenManagement
 
             map = new Map(ScreenManager.Game);
 
+            map.Initialize();
+
             // once the load has finished, we use ResetElapsedTime to tell the game's
             // timing mechanism that we have just finished a very long frame, and that
             // it should not try to catch up.
             ScreenManager.Game.ResetElapsedTime();
+
+            base.LoadContent();
         }
 
 
@@ -66,6 +73,8 @@ namespace Fantasy_Wars.ScreenManagement
         public override void UnloadContent()
         {
             content.Unload();
+
+            base.UnloadContent();
         }
 
 
