@@ -19,6 +19,7 @@ namespace Fantasy_Wars.ScreenManagement
         private float _pauseAlpha;
 
         private Map _map;
+        private Army army1;
 
         #endregion
 
@@ -53,8 +54,10 @@ namespace Fantasy_Wars.ScreenManagement
             _gameFont = _content.Load<SpriteFont>("gamefont");
 
             _map = new Map(this);
-
             _map.LoadContent(_content);
+
+            army1 = new Army(this);
+            army1.LoadContent(_content);
 
             // once the load has finished, we use ResetElapsedTime to tell the game's
             // timing mechanism that we have just finished a very long frame, and that
@@ -70,6 +73,9 @@ namespace Fantasy_Wars.ScreenManagement
         /// </summary>
         public override void UnloadContent()
         {
+            this._map.UnLoadContent();
+            this.army1.UnLoadContent();
+
             _content.Unload();
 
             base.UnloadContent();
@@ -90,6 +96,9 @@ namespace Fantasy_Wars.ScreenManagement
                                                        bool coveredByOtherScreen)
         {
             this._map.Update(gameTime);
+            this.army1.Update(gameTime);
+
+            base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
         }
 
 
@@ -108,6 +117,7 @@ namespace Fantasy_Wars.ScreenManagement
         public override void Draw(GameTime gameTime)
         {
             this._map.Draw(gameTime, ScreenManager.SpriteBatch);
+            this.army1.Draw(gameTime, ScreenManager.SpriteBatch);
         }
 
 

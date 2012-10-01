@@ -2,21 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Fantasy_Wars.ScreenManagement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Fantasy_Wars.ScreenManagement
+namespace Fantasy_Wars.Components
 {
-    class GameComponent
+    class DrawableGameComponent: GameComponent
     {
-        private readonly GameScreen _screen;
-
-        public GameComponent(GameScreen screen)
+        public DrawableGameComponent(GameScreen screen) : base(screen)
         {
-            _screen = screen;
         }
-        
+
+        public Sprite Sprite { get; protected set; }
+
         public virtual void LoadContent(ContentManager contentManager)
         {
             throw new NotImplementedException();
@@ -31,9 +31,5 @@ namespace Fantasy_Wars.ScreenManagement
             throw new NotImplementedException();
         }
 
-        public virtual void Update(GameTime gameTime)
-        {
-            
-        }
     }
 }
