@@ -62,7 +62,7 @@ namespace Fantasy_Wars
         /// <summary>
         /// When the user cancels the main menu, ask if they want to exit the sample.
         /// </summary>
-        protected override void OnCancel(PlayerIndex playerIndex)
+        protected override void OnCancel(object sender, EventArgs e)
         {
             const string message = "Are you sure you want to exit this sample?";
 
@@ -70,7 +70,7 @@ namespace Fantasy_Wars
 
             confirmExitMessageBox.Accepted += ConfirmExitMessageBoxAccepted;
 
-            ScreenManager.AddScreen(confirmExitMessageBox, playerIndex);
+            ScreenManager.AddScreen(confirmExitMessageBox, PlayerIndex.One);
         }
 
 

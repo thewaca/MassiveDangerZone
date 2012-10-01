@@ -66,7 +66,7 @@ namespace Fantasy_Wars.ScreenManagement
         /// <summary>
         /// Method for raising the Selected event.
         /// </summary>
-        protected internal virtual void OnSelectEntry(PlayerIndex playerIndex)
+        protected internal virtual void OnSelectEntry()
         {
             if (Selected != null)
                 Selected(this, new EventArgs());

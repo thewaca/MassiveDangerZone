@@ -58,6 +58,8 @@ namespace Fantasy_Wars
             inputEvents = new InputEvents(Keyboard.GetState(), Mouse.GetState());
             inputEvents.RegisterForKeyUp(HandleKeyEscape, Keys.Escape);
 
+            this.IsMouseVisible = true;
+
             base.Initialize();
         }
 

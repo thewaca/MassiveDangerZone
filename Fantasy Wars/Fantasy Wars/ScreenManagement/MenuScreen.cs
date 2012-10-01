@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Fantasy_Wars.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace Fantasy_Wars.ScreenManagement
 {
@@ -42,6 +44,11 @@ namespace Fantasy_Wars.ScreenManagement
 
             TransitionOnTime = TimeSpan.FromSeconds(0.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
+
+            bindings.Add(new KeyBinding(((FantasyWars)ScreenManager.Game).inputEvents, Keys.Up, this.HandleUp));
+            bindings.Add(new KeyBinding(((FantasyWars)ScreenManager.Game).inputEvents, Keys.Down, this.HandleDown));
+            bindings.Add(new KeyBinding(((FantasyWars)ScreenManager.Game).inputEvents, Keys.Enter, this.HandleSelect));
+            bindings.Add(new KeyBinding(((FantasyWars)ScreenManager.Game).inputEvents, Keys.Back, this.OnCancel));
         }
 
 
@@ -49,6 +56,26 @@ namespace Fantasy_Wars.ScreenManagement
 
         #region Handle Input
 
+        void HandleUp(object sender, KeyEventArgs e)
+        {
+            selectedEntry++;
+
+            if (selectedEntry >= menuEntries.Count)
+                selectedEntry = 0;
+        }
+
+        void HandleDown(object sender, KeyEventArgs e)
+        {
+            selectedEntry--;
+
+            if (selectedEntry < 0)
+                selectedEntry = menuEntries.Count - 1;
+        }
+
+        void HandleSelect(object sender, KeyEventArgs e)
+        {
+            OnSelectEntry(selectedEntry);
+        }
 
         /// <summary>
         /// Responds to user input, changing the selected entry and accepting
@@ -57,22 +84,7 @@ namespace Fantasy_Wars.ScreenManagement
         public override void HandleInput()
         {
             // Move to the previous menu entry?
-            /*if (input.IsMenuUp(ControllingPlayer))
-            {
-                selectedEntry--;
-
-                if (selectedEntry < 0)
-                    selectedEntry = menuEntries.Count - 1;
-            }
-
-            // Move to the next menu entry?
-            if (input.IsMenuDown(ControllingPlayer))
-            {
-                selectedEntry++;
-
-                if (selectedEntry >= menuEntries.Count)
-                    selectedEntry = 0;
-            }*/
+            /*
 
             // Accept or cancel the menu? We pass in our ControllingPlayer, which may
             // either be null (to accept input from any player) or a specific index.
@@ -95,27 +107,17 @@ namespace Fantasy_Wars.ScreenManagement
         /// <summary>
         /// Handler for when the user has chosen a menu entry.
         /// </summary>
-        protected virtual void OnSelectEntry(int entryIndex, PlayerIndex playerIndex)
+        protected virtual void OnSelectEntry(int entryIndex)
         {
-            menuEntries[entryIndex].OnSelectEntry(playerIndex);
+            menuEntries[entryIndex].OnSelectEntry();
         }
-
-
-        /// <summary>
-        /// Handler for when the user has cancelled the menu.
-        /// </summary>
-        protected virtual void OnCancel(PlayerIndex playerIndex)
-        {
-            ExitScreen();
-        }
-
 
         /// <summary>
         /// Helper overload makes it easy to use OnCancel as a MenuEntry event handler.
         /// </summary>
-        protected void OnCancel(object sender, EventArgs e)
+        protected virtual void OnCancel(object sender, EventArgs e)
         {
-            OnCancel(PlayerIndex.One);
+            ExitScreen();
         }
 
 
