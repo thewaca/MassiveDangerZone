@@ -13,32 +13,38 @@ namespace Fantasy_Wars.Components
         public WorldObject(GameScreen screen, Vector3 position) : base(screen)
         {
             Position = position;
-            this.Dimensions = new Vector3(64, 32, 40);
         }
 
-        public Vector3 Dimensions { get; protected set; }
+        static readonly Vector3 Dimensions = new Vector3(64, 32, 40);
         public Vector3 Position { get; protected set; }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public static Vector2 ScreenCoords(Viewport viewport, Vector3 position)
         {
-            var windowWidth = this.Screen.ScreenManager.Game.GraphicsDevice.Viewport.Width;
+            var windowWidth = viewport.Width;
 
-            var width = this.Dimensions.X/2;
-            var height = this.Dimensions.Y/2;
-            var depth = this.Dimensions.Z;
+            var width = WorldObject.Dimensions.X/2;
+            var height = WorldObject.Dimensions.Y/2;
+            var depth = WorldObject.Dimensions.Z;
 
             var originX = windowWidth/2;
             const int originY = 20;
 
-            var posX = this.Position.X;
-            var posY = this.Position.Y;
-            var posZ = this.Position.Z;
+            var posX = position.X;
+            var posY = position.Y;
+            var posZ = position.Z;
 
             var x = originX + posX * width - posY * width;
             var y = originY + posX * height + posY * height;
             y -= posZ * depth;
 
-            Sprite.Draw(spriteBatch, (int) x, (int) y);
+            return new Vector2(x, y);
+        }
+
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            var coords = WorldObject.ScreenCoords(this.Screen.ScreenManager.Game.GraphicsDevice.Viewport, Position);
+
+            Sprite.Draw(spriteBatch, coords);
         }
     }
 }

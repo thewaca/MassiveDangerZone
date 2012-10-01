@@ -27,7 +27,7 @@ namespace Fantasy_Wars
             {
                 for (int y = 0; y < 10; y++)
                 {
-                    var tile = new Tile(Screen, new Vector3(x, y, 0));
+                    var tile = new Tile(Screen, new Vector3(x, y, y == 2 ? 1 : 0));
                     tile.LoadContent(contentManager);
                     tiles[x,y] = tile;
                 }

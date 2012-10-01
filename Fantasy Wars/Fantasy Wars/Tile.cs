@@ -12,6 +12,8 @@ namespace Fantasy_Wars
         {
         }
 
+        private Sprite Border;
+
         public override void LoadContent(ContentManager contentManager)
         {
             this.Sprite = new Sprite()
@@ -20,6 +22,20 @@ namespace Fantasy_Wars
                                   Origin = new Vector2(32, 16),
                                   Texture = contentManager.Load<Texture2D>("grass")
                               };
+            this.Border = new Sprite()
+                              {
+                                  Color = new Color(92, 51, 23),
+                                  Origin = new Vector2(64, 17),
+                                  Texture = contentManager.Load<Texture2D>("border")
+                              };
+        }
+
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            var coords = WorldObject.ScreenCoords(this.Screen.ScreenManager.Game.GraphicsDevice.Viewport, Position);
+
+            Sprite.Draw(spriteBatch, coords);
+            Border.Draw(spriteBatch, coords);
         }
     }
 }
