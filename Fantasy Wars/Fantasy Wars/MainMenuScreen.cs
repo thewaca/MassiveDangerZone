@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Fantasy_Wars.ScreenManagement;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace Fantasy_Wars
 {
@@ -39,6 +40,12 @@ namespace Fantasy_Wars
 
         #region Handle Input
 
+        public override void LoadContent()
+        {
+            var game = (FantasyWars) ScreenManager.Game;
+            game.inputEvents.RegisterForKeyUp(PlayGameMenuEntrySelected, Keys.Enter);
+            base.LoadContent();
+        }
 
         /// <summary>
         /// Event handler for when the Play Game menu entry is selected.

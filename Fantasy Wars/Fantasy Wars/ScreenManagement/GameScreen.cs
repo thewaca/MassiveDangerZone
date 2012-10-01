@@ -140,13 +140,7 @@ namespace Fantasy_Wars.ScreenManagement
         /// <summary>
         /// Gets the manager that this screen belongs to.
         /// </summary>
-        public ScreenManager ScreenManager
-        {
-            get { return screenManager; }
-            internal set { screenManager = value; }
-        }
-
-        ScreenManager screenManager;
+        public ScreenManager ScreenManager { get; internal set; }
 
 
         /// <summary>
@@ -157,13 +151,7 @@ namespace Fantasy_Wars.ScreenManagement
         /// this menu is given control over all subsequent screens, so other gamepads
         /// are inactive until the controlling player returns to the main menu.
         /// </summary>
-        public PlayerIndex? ControllingPlayer
-        {
-            get { return controllingPlayer; }
-            internal set { controllingPlayer = value; }
-        }
-
-        PlayerIndex? controllingPlayer;
+        public PlayerIndex? ControllingPlayer { get; internal set; }
 
 
         /// <summary>

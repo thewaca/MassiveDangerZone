@@ -24,7 +24,9 @@ namespace Fantasy_Wars
             {
                 for (int y = 0; y < 10; y++)
                 {
-                    tiles[x,y] = new Tile(this.Game, Color.Green, new Vector3(x, y, 0), spriteBatch);
+                    var tile = new Tile(this.Game, Color.White, new Vector3(x, y, 0), spriteBatch);
+                    tile.Initialize();
+                    tiles[x,y] = tile;
                 }
             }
 
@@ -38,28 +40,34 @@ namespace Fantasy_Wars
             var xLen = this.tiles.GetLength(0);
             var yLen = this.tiles.GetLength(1);
 
+            this.spriteBatch.Begin();
+
             while(x < xLen && y < yLen)
             {
-                this.tiles[x, y].Draw(gameTime);
+                var tile = this.tiles[x, y];
+                Console.WriteLine(String.Format("drawing tile at ({0}, {1})", x, y));
+                tile.Draw(gameTime);
                 x++;
                 y--;
 
                 if(y < 0 || x >= xLen)
                 {
-                    y = x;
-                    if(y >= yLen)
+                    if(x >= yLen)
                     {
-                        x = y - yLen + 1;
+                        x = y + 2;
                         y = yLen - 1;
                     }
                     else
                     {
+                        y = x;
                         x = 0;
                     }
                 }
 
             }
             base.Draw(gameTime);
+
+            this.spriteBatch.End();
         }
     }
 }
