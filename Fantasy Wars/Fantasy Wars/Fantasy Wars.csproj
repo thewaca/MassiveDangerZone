@@ -110,9 +110,12 @@
   <ItemGroup>
     <Compile Include="Army.cs" />
     <Compile Include="BackgroundScreen.cs" />
+    <Compile Include="Components\DrawableGameComponent.cs" />
+    <Compile Include="Components\Sprite.cs" />
+    <Compile Include="Components\WorldObject.cs" />
     <Compile Include="Input\InputEvents.cs" />
     <Compile Include="Input\KeyBinding.cs" />
-    <Compile Include="ScreenManagement\GameComponent.cs" />
+    <Compile Include="Components\GameComponent.cs" />
     <Compile Include="ScreenManagement\GameplayScreen.cs" />
     <Compile Include="ScreenManagement\GameScreen.cs" />
     <Compile Include="LoadingScreen.cs" />
@@ -128,6 +131,7 @@
     <Compile Include="FantasyWars.cs" />
     <Compile Include="ScreenManagement\ScreenManager.cs" />
     <Compile Include="Tile.cs" />
+    <Compile Include="Unit.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
