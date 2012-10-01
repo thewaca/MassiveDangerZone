@@ -221,6 +221,7 @@ namespace Fantasy_Wars.ScreenManagement
                                                       bool coveredByOtherScreen)
         {
             this.otherScreenHasFocus = otherScreenHasFocus;
+            inputEvents.UpdateInputState(Keyboard.GetState(), Mouse.GetState());
 
             if (isExiting)
             {
@@ -305,7 +306,7 @@ namespace Fantasy_Wars.ScreenManagement
 
         public virtual void RaiseInputEvents()
         {
-            inputEvents.RaiseInputEvents(Keyboard.GetState(), Mouse.GetState());
+            inputEvents.RaiseInputEvents();
         }
 
 
