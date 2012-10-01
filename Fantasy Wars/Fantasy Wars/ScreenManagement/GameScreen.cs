@@ -23,6 +23,7 @@ namespace Fantasy_Wars.ScreenManagement
     {
         #region Properties
 
+        protected InputEvents inputEvents = new InputEvents(Keyboard.GetState(), Mouse.GetState());
         protected List<KeyBinding> bindings = new List<KeyBinding>();
 
         /// <summary>
@@ -203,10 +204,6 @@ namespace Fantasy_Wars.ScreenManagement
         /// </summary>
         public virtual void UnloadContent()
         {
-            foreach (var keyBinding in bindings)
-            {
-                keyBinding.UnRegister();
-            }
         }
 
 
@@ -302,7 +299,14 @@ namespace Fantasy_Wars.ScreenManagement
         /// is only called when the screen is active, and not when some other
         /// screen has taken the focus.
         /// </summary>
-        public virtual void HandleInput() { }
+        public virtual void HandleInput() 
+        {
+        }
+
+        public virtual void RaiseInputEvents()
+        {
+            inputEvents.RaiseInputEvents(Keyboard.GetState(), Mouse.GetState());
+        }
 
 
         /// <summary>

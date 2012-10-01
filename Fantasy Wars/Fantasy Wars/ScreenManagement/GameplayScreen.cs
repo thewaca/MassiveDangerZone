@@ -45,7 +45,6 @@ namespace Fantasy_Wars.ScreenManagement
         public override void LoadContent()
         {
             var game = (FantasyWars) ScreenManager.Game;
-            var inputEvents = game.inputEvents;
 
             bindings.Add(new KeyBinding(inputEvents, Keys.Escape, this.handlePause));
 

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Fantasy_Wars.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace Fantasy_Wars.ScreenManagement
 {
@@ -44,11 +46,31 @@ namespace Fantasy_Wars.ScreenManagement
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
         }
 
+        /// <summary>
+        /// Load graphics content for the game.
+        /// </summary>
+        public override void LoadContent()
+        {
+            var game = (FantasyWars)ScreenManager.Game;
+
+            bindings.Add(new KeyBinding(inputEvents, Keys.Up, this.HandleUp, KeyState.Down));
+            bindings.Add(new KeyBinding(inputEvents, Keys.Down, this.HandleDown, KeyState.Down));
+            bindings.Add(new KeyBinding(inputEvents, Keys.Enter, this.HandleSelect, KeyState.Down));
+            bindings.Add(new KeyBinding(inputEvents, Keys.Back, this.OnCancel, KeyState.Down));
+            bindings.Add(new KeyBinding(inputEvents, Keys.Escape, this.OnCancel, KeyState.Down));
+
+            // once the load has finished, we use ResetElapsedTime to tell the game's
+            // timing mechanism that we have just finished a very long frame, and that
+            // it should not try to catch up.
+            ScreenManager.Game.ResetElapsedTime();
+
+            base.LoadContent();
+        }
+
 
         #endregion
 
         #region Handle Input
-
 
         /// <summary>
         /// Responds to user input, changing the selected entry and accepting
@@ -56,66 +78,43 @@ namespace Fantasy_Wars.ScreenManagement
         /// </summary>
         public override void HandleInput()
         {
-            // Move to the previous menu entry?
-            /*if (input.IsMenuUp(ControllingPlayer))
-            {
-                selectedEntry--;
-
-                if (selectedEntry < 0)
-                    selectedEntry = menuEntries.Count - 1;
-            }
-
-            // Move to the next menu entry?
-            if (input.IsMenuDown(ControllingPlayer))
-            {
-                selectedEntry++;
-
-                if (selectedEntry >= menuEntries.Count)
-                    selectedEntry = 0;
-            }*/
-
-            // Accept or cancel the menu? We pass in our ControllingPlayer, which may
-            // either be null (to accept input from any player) or a specific index.
-            // If we pass a null controlling player, the InputState helper returns to
-            // us which player actually provided the input. We pass that through to
-            // OnSelectEntry and OnCancel, so they can tell which player triggered them.
-            PlayerIndex playerIndex;
-
-            /*if (input.IsMenuSelect(ControllingPlayer, out playerIndex))
-            {
-                OnSelectEntry(selectedEntry, playerIndex);
-            }
-            else if (input.IsMenuCancel(ControllingPlayer, out playerIndex))
-            {
-                OnCancel(playerIndex);
-            }*/
         }
 
+        protected void HandleUp(object sender, KeyEventArgs e)
+        {
+            selectedEntry--;
+
+            if (selectedEntry < 0)
+                selectedEntry = menuEntries.Count - 1;
+        }
+
+        protected void HandleDown(object sender, KeyEventArgs e)
+        {
+            selectedEntry++;
+
+            if (selectedEntry >= menuEntries.Count)
+                selectedEntry = 0;
+        }
+
+        protected void HandleSelect(object sender, KeyEventArgs e)
+        {
+            OnSelectEntry(selectedEntry);
+        }
 
         /// <summary>
         /// Handler for when the user has chosen a menu entry.
         /// </summary>
-        protected virtual void OnSelectEntry(int entryIndex, PlayerIndex playerIndex)
+        protected virtual void OnSelectEntry(int entryIndex)
         {
-            menuEntries[entryIndex].OnSelectEntry(playerIndex);
+            menuEntries[entryIndex].OnSelectEntry();
         }
-
-
-        /// <summary>
-        /// Handler for when the user has cancelled the menu.
-        /// </summary>
-        protected virtual void OnCancel(PlayerIndex playerIndex)
-        {
-            ExitScreen();
-        }
-
 
         /// <summary>
         /// Helper overload makes it easy to use OnCancel as a MenuEntry event handler.
         /// </summary>
-        protected void OnCancel(object sender, EventArgs e)
+        protected virtual void OnCancel(object sender, EventArgs e)
         {
-            OnCancel(PlayerIndex.One);
+            ExitScreen();
         }
 
 

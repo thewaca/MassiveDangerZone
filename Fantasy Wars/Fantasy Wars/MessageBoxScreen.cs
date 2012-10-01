@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Fantasy_Wars.Input;
+using Microsoft.Xna.Framework.Input;
 using Fantasy_Wars.ScreenManagement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -43,8 +45,8 @@ namespace Fantasy_Wars
         /// </summary>
         public MessageBoxScreen(string message, bool includeUsageText)
         {
-            const string usageText = "\nA button, Space, Enter = ok" +
-                                     "\nB button, Esc = cancel"; 
+            const string usageText = "\nSpace or Enter = ok" +
+                                     "\nBackspace or Esc = cancel"; 
             
             if (includeUsageText)
                 this.message = message + usageText;
@@ -69,6 +71,13 @@ namespace Fantasy_Wars
             ContentManager content = ScreenManager.Game.Content;
 
             gradientTexture = content.Load<Texture2D>("gradient");
+
+            bindings.Add(new KeyBinding(inputEvents, Keys.Enter, this.OnAccept, KeyState.Down));
+            bindings.Add(new KeyBinding(inputEvents, Keys.Space, this.OnAccept, KeyState.Down));
+            bindings.Add(new KeyBinding(inputEvents, Keys.Escape, this.OnCancel, KeyState.Down));
+            bindings.Add(new KeyBinding(inputEvents, Keys.Back, this.OnCancel, KeyState.Down));
+
+            base.LoadContent();
         }
 
 
@@ -76,35 +85,32 @@ namespace Fantasy_Wars
 
         #region Handle Input
 
+        protected void OnAccept(object sender, KeyEventArgs e)
+        {
+            if (Accepted != null)
+            {
+                Accepted(this, new EventArgs());
+            }
+
+            ExitScreen();
+        }
+
+        protected void OnCancel(object sender, KeyEventArgs e)
+        {
+
+            if (Cancelled != null)
+            {
+                Cancelled(this, new EventArgs());
+            }
+
+            ExitScreen();
+        }
 
         /// <summary>
         /// Responds to user input, accepting or cancelling the message box.
         /// </summary>
         public override void HandleInput()
         {
-            PlayerIndex playerIndex;
-
-            // We pass in our ControllingPlayer, which may either be null (to
-            // accept input from any player) or a specific index. If we pass a null
-            // controlling player, the InputState helper returns to us which player
-            // actually provided the input. We pass that through to our Accepted and
-            // Cancelled events, so they can tell which player triggered them.
-            /*if (input.IsMenuSelect(ControllingPlayer, out playerIndex))
-            {
-                // Raise the accepted event, then exit the message box.
-                if (Accepted != null)
-                    Accepted(this, new EventArgs());
-
-                ExitScreen();
-            }
-            else if (input.IsMenuCancel(ControllingPlayer, out playerIndex))
-            {
-                // Raise the cancelled event, then exit the message box.
-                if (Cancelled != null)
-                    Cancelled(this, new EventArgs());
-
-                ExitScreen();
-            }*/
         }
 
 
