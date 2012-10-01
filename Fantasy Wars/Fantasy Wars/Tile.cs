@@ -2,59 +2,56 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Fantasy_Wars.ScreenManagement;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using GameComponent = Fantasy_Wars.ScreenManagement.GameComponent;
 
 namespace Fantasy_Wars
 {
-    class Tile : DrawableGameComponent
+    class Tile : GameComponent
     {
-        private readonly Color color;
+        private readonly GameScreen _screen;
+        private readonly Color _color;
 
-        private readonly Vector3 position;
-        private readonly Vector3 dimensions = new Vector3(64, 32, 40);
-        private readonly SpriteBatch spriteBatch;
+        private readonly Vector3 _position;
+        private readonly Vector3 _dimensions = new Vector3(64, 32, 40);
 
-        private Texture2D texture;
+        private Texture2D _texture;
 
-        public Tile(Game game, Color color, Vector3 position, SpriteBatch spriteBatch) : base(game)
+        public Tile(GameScreen screen, Color color, Vector3 position) : base(screen)
         {
-            this.color = color;
-            this.position = position;
-            this.spriteBatch = spriteBatch;
+            this._screen = screen;
+            this._color = color;
+            this._position = position;
         }
 
-        protected override void LoadContent()
+        public override void LoadContent(ContentManager contentManager)
         {
-            var contentManager = this.Game.Content;
-
-            this.texture = contentManager.Load<Texture2D>("grass");
-
-            base.LoadContent();
+            this._texture = contentManager.Load<Texture2D>("grass");
         }
 
-        public override void Draw(GameTime gameTime)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            var windowWidth = this.Game.GraphicsDevice.Viewport.Width;
+            var windowWidth = this._screen.ScreenManager.Game.GraphicsDevice.Viewport.Width;
 
-            var width = this.dimensions.X/2;
-            var height = this.dimensions.Y/2;
-            var depth = this.dimensions.Z;
+            var width = this._dimensions.X/2;
+            var height = this._dimensions.Y/2;
+            var depth = this._dimensions.Z;
 
             var originX = windowWidth/2;
             const int originY = 20;
 
-            var x = this.position.X;
-            var y = this.position.Y;
-            var z = this.position.Z;
+            var posX = this._position.X;
+            var posY = this._position.Y;
+            var posZ = this._position.Z;
 
-            x = originX + x * width - y * width;
-            y = originY + y * height + x * height;
-            y -= z * depth;
+            var x = originX + posX * width - posY * width;
+            var y = originY + posX * height + posY * height;
+            y -= posZ * depth;
 
-            this.spriteBatch.Draw(this.texture, new Vector2(x, y), this.color);
-
-            base.Draw(gameTime);
+            spriteBatch.Draw(this._texture, new Vector2(x, y), this._color);
         }
     }
 }

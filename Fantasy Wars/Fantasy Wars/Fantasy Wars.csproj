@@ -112,6 +112,7 @@
     <Compile Include="BackgroundScreen.cs" />
     <Compile Include="Input\InputEvents.cs" />
     <Compile Include="Input\KeyBinding.cs" />
+    <Compile Include="ScreenManagement\GameComponent.cs" />
     <Compile Include="ScreenManagement\GameplayScreen.cs" />
     <Compile Include="ScreenManagement\GameScreen.cs" />
     <Compile Include="LoadingScreen.cs" />
