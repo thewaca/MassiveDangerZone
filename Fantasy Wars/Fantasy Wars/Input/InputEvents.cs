@@ -44,9 +44,9 @@ namespace Fantasy_Wars.Input
         private Dictionary<Keys, List<KeyEventHandler>> targetedKeyUpEvents;
 
 
-        private event MouseEventHandler MouseDownEvent;
-        private event MouseEventHandler MouseUpEvent;
-        private event MouseEventHandler MouseMoveEvent;
+        public event MouseEventHandler MouseDownEvent;
+        public event MouseEventHandler MouseUpEvent;
+        public event MouseEventHandler MouseMoveEvent;
 
         private KeyboardState previousKeyboardState;
         private MouseState previousMouseState;
