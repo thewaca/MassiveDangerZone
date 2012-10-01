@@ -44,11 +44,27 @@ namespace Fantasy_Wars.ScreenManagement
 
             TransitionOnTime = TimeSpan.FromSeconds(0.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
+        }
 
-            bindings.Add(new KeyBinding(((FantasyWars)ScreenManager.Game).inputEvents, Keys.Up, this.HandleUp));
-            bindings.Add(new KeyBinding(((FantasyWars)ScreenManager.Game).inputEvents, Keys.Down, this.HandleDown));
-            bindings.Add(new KeyBinding(((FantasyWars)ScreenManager.Game).inputEvents, Keys.Enter, this.HandleSelect));
-            bindings.Add(new KeyBinding(((FantasyWars)ScreenManager.Game).inputEvents, Keys.Back, this.OnCancel));
+        /// <summary>
+        /// Load graphics content for the game.
+        /// </summary>
+        public override void LoadContent()
+        {
+            var game = (FantasyWars)ScreenManager.Game;
+
+            bindings.Add(new KeyBinding(inputEvents, Keys.Up, this.HandleUp, KeyState.Down));
+            bindings.Add(new KeyBinding(inputEvents, Keys.Down, this.HandleDown, KeyState.Down));
+            bindings.Add(new KeyBinding(inputEvents, Keys.Enter, this.HandleSelect, KeyState.Down));
+            bindings.Add(new KeyBinding(inputEvents, Keys.Back, this.OnCancel, KeyState.Down));
+            bindings.Add(new KeyBinding(inputEvents, Keys.Escape, this.OnCancel, KeyState.Down));
+
+            // once the load has finished, we use ResetElapsedTime to tell the game's
+            // timing mechanism that we have just finished a very long frame, and that
+            // it should not try to catch up.
+            ScreenManager.Game.ResetElapsedTime();
+
+            base.LoadContent();
         }
 
 
@@ -56,15 +72,15 @@ namespace Fantasy_Wars.ScreenManagement
 
         #region Handle Input
 
-        void HandleUp(object sender, KeyEventArgs e)
+        /// <summary>
+        /// Responds to user input, changing the selected entry and accepting
+        /// or cancelling the menu.
+        /// </summary>
+        public override void HandleInput()
         {
-            selectedEntry++;
-
-            if (selectedEntry >= menuEntries.Count)
-                selectedEntry = 0;
         }
 
-        void HandleDown(object sender, KeyEventArgs e)
+        protected void HandleUp(object sender, KeyEventArgs e)
         {
             selectedEntry--;
 
@@ -72,37 +88,18 @@ namespace Fantasy_Wars.ScreenManagement
                 selectedEntry = menuEntries.Count - 1;
         }
 
-        void HandleSelect(object sender, KeyEventArgs e)
+        protected void HandleDown(object sender, KeyEventArgs e)
+        {
+            selectedEntry++;
+
+            if (selectedEntry >= menuEntries.Count)
+                selectedEntry = 0;
+        }
+
+        protected void HandleSelect(object sender, KeyEventArgs e)
         {
             OnSelectEntry(selectedEntry);
         }
-
-        /// <summary>
-        /// Responds to user input, changing the selected entry and accepting
-        /// or cancelling the menu.
-        /// </summary>
-        public override void HandleInput()
-        {
-            // Move to the previous menu entry?
-            /*
-
-            // Accept or cancel the menu? We pass in our ControllingPlayer, which may
-            // either be null (to accept input from any player) or a specific index.
-            // If we pass a null controlling player, the InputState helper returns to
-            // us which player actually provided the input. We pass that through to
-            // OnSelectEntry and OnCancel, so they can tell which player triggered them.
-            PlayerIndex playerIndex;
-
-            /*if (input.IsMenuSelect(ControllingPlayer, out playerIndex))
-            {
-                OnSelectEntry(selectedEntry, playerIndex);
-            }
-            else if (input.IsMenuCancel(ControllingPlayer, out playerIndex))
-            {
-                OnCancel(playerIndex);
-            }*/
-        }
-
 
         /// <summary>
         /// Handler for when the user has chosen a menu entry.

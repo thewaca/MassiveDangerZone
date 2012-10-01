@@ -43,7 +43,6 @@ namespace Fantasy_Wars
         public override void LoadContent()
         {
             var game = (FantasyWars) ScreenManager.Game;
-            game.inputEvents.RegisterForKeyUp(PlayGameMenuEntrySelected, Keys.Enter);
             base.LoadContent();
         }
 

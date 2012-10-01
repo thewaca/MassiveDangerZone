@@ -158,6 +158,7 @@ namespace Fantasy_Wars.ScreenManagement
                     // give it a chance to handle input.
                     if (!otherScreenHasFocus)
                     {
+                        screen.RaiseInputEvents();
                         screen.HandleInput();
 
                         otherScreenHasFocus = true;
