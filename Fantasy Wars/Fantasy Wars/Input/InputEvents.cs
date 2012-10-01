@@ -15,6 +15,7 @@ namespace Fantasy_Wars.Input
 
     public enum MouseButton
     {
+        None,
         Left,
         Right,
         Middle,
@@ -45,6 +46,7 @@ namespace Fantasy_Wars.Input
 
         private event MouseEventHandler MouseDownEvent;
         private event MouseEventHandler MouseUpEvent;
+        private event MouseEventHandler MouseMoveEvent;
 
         private KeyboardState previousKeyboardState;
         private MouseState previousMouseState;
@@ -147,34 +149,36 @@ namespace Fantasy_Wars.Input
             }
         }
 
-        protected void RaiseMouseClickEvents(MouseState currentMouseState, MouseState previousMouseState)
+        protected void RaiseMouseButtonEvent(ButtonState current, ButtonState previous, MouseState currentState, MouseButton button)
         {
-            if (currentMouseState.LeftButton == ButtonState.Released && previousMouseState.LeftButton == ButtonState.Pressed)
+            if (current == ButtonState.Released && previous == ButtonState.Pressed)
             {
-                RaiseMouseEvent(MouseButton.Left, currentMouseState, MouseUpEvent);
+                RaiseMouseEvent(button, currentState, MouseUpEvent);
             }
-            else if (currentMouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton == ButtonState.Released)
+            else if (current == ButtonState.Pressed && previous == ButtonState.Released)
             {
-                RaiseMouseEvent(MouseButton.Left, currentMouseState, MouseDownEvent);
+                RaiseMouseEvent(button, currentState, MouseDownEvent);
             }
+        }
 
-            if (currentMouseState.RightButton == ButtonState.Released && previousMouseState.RightButton == ButtonState.Pressed)
+        protected void RaiseMouseMoveEvents(MouseState currentMouseState, MouseState previousMouseState)
+        {
+            if ((currentMouseState.X != previousMouseState.X) ||
+                (currentMouseState.Y != previousMouseState.Y))
             {
-                RaiseMouseEvent(MouseButton.Right, currentMouseState, MouseUpEvent);
+                RaiseMouseEvent(MouseButton.None, currentMouseState, MouseMoveEvent);
             }
-            else if (currentMouseState.RightButton == ButtonState.Pressed && previousMouseState.RightButton == ButtonState.Released)
-            {
-                RaiseMouseEvent(MouseButton.Right, currentMouseState, MouseDownEvent);
-            }
+        }
 
-            if (currentMouseState.MiddleButton == ButtonState.Released && previousMouseState.MiddleButton == ButtonState.Pressed)
-            {
-                RaiseMouseEvent(MouseButton.Middle, currentMouseState, MouseUpEvent);
-            }
-            else if (currentMouseState.MiddleButton == ButtonState.Pressed && previousMouseState.MiddleButton == ButtonState.Released)
-            {
-                RaiseMouseEvent(MouseButton.Middle, currentMouseState, MouseDownEvent);
-            }
+        protected void RaiseMouseEvents(MouseState currentMouseState, MouseState previousMouseState)
+        {
+            RaiseMouseButtonEvent(currentMouseState.LeftButton, previousMouseState.LeftButton, currentMouseState, MouseButton.Left);
+            RaiseMouseButtonEvent(currentMouseState.RightButton, previousMouseState.RightButton, currentMouseState, MouseButton.Right);
+            RaiseMouseButtonEvent(currentMouseState.MiddleButton, previousMouseState.MiddleButton, currentMouseState, MouseButton.Middle);
+            RaiseMouseButtonEvent(currentMouseState.XButton1, previousMouseState.XButton1, currentMouseState, MouseButton.X1);
+            RaiseMouseButtonEvent(currentMouseState.XButton2, previousMouseState.XButton2, currentMouseState, MouseButton.X2);
+
+            RaiseMouseMoveEvents(currentMouseState, previousMouseState);
         }
 
         public void RaiseInputEvents(KeyboardState currentKeyboardState, MouseState currentMouseState)
@@ -183,7 +187,7 @@ namespace Fantasy_Wars.Input
             RaiseKeyboardEvents(currentKeyboardState, previousKeyboardState, KeyDownEvent, targetedKeyDownEvents);
             previousKeyboardState = currentKeyboardState;
 
-            RaiseMouseClickEvents(currentMouseState, previousMouseState);
+            RaiseMouseEvents(currentMouseState, previousMouseState);
             previousMouseState = currentMouseState;
         }
     }
