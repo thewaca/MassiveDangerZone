@@ -25,9 +25,12 @@ namespace Fantasy_Wars.Input
 
     public class MouseEventArgs : EventArgs
     {
-        public MouseEventArgs(MouseButton m, Int32 X, Int32 Y, Int32 Scroll)
+        public MouseEventArgs(MouseButton m, Int32 x, Int32 y, Int32 scroll)
         {
             mouse = m;
+            this.X = x;
+            this.Y = y;
+            this.Scroll = scroll;
         }
         public MouseButton mouse;
         public Int32 X, Y, Scroll;

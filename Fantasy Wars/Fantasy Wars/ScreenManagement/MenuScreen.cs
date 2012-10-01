@@ -59,6 +59,9 @@ namespace Fantasy_Wars.ScreenManagement
             bindings.Add(new KeyBinding(inputEvents, Keys.Back, this.OnCancel, KeyState.Down));
             bindings.Add(new KeyBinding(inputEvents, Keys.Escape, this.OnCancel, KeyState.Down));
 
+            inputEvents.MouseMoveEvent += OnMouseMove;
+            inputEvents.MouseUpEvent += OnMouseUp;
+
             // once the load has finished, we use ResetElapsedTime to tell the game's
             // timing mechanism that we have just finished a very long frame, and that
             // it should not try to catch up.
@@ -78,6 +81,30 @@ namespace Fantasy_Wars.ScreenManagement
         /// </summary>
         public override void HandleInput()
         {
+        }
+
+        protected void OnMouseMove(object sender, MouseEventArgs e)
+        {
+            int count = 0;
+            foreach (MenuEntry m in MenuEntries)
+            {
+                Rectangle r = new Rectangle((int)m.Position.X, (int)m.Position.Y, m.GetWidth(this), m.GetHeight(this));
+                if (r.Contains(e.X, e.Y))
+                {
+                    selectedEntry = count;
+                }
+                count++;
+            }
+        }
+
+        protected void OnMouseUp(object sender, MouseEventArgs e)
+        {
+            MenuEntry m = MenuEntries[selectedEntry];
+            Rectangle r = new Rectangle((int)m.Position.X, (int)m.Position.Y, m.GetWidth(this), m.GetHeight(this));
+            if (r.Contains(e.X, e.Y))
+            {
+                m.OnSelectEntry();
+            }
         }
 
         protected void HandleUp(object sender, KeyEventArgs e)
