@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fantasy Wars", "Fantasy Wars\Fantasy Wars\Fantasy Wars.csproj", "{612C627E-ECAD-4D42-9298-0BC7E592A403}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MassiveDangerZone", "Fantasy Wars\Fantasy Wars\MassiveDangerZone.csproj", "{612C627E-ECAD-4D42-9298-0BC7E592A403}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "Fantasy WarsContent", "Fantasy Wars\Fantasy WarsContent\Fantasy WarsContent.contentproj", "{F94AB692-F758-4F82-BDC5-152FAED63626}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MassiveDangerZoneContent", "Fantasy Wars\Fantasy WarsContent\MassiveDangerZoneContent.contentproj", "{F94AB692-F758-4F82-BDC5-152FAED63626}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

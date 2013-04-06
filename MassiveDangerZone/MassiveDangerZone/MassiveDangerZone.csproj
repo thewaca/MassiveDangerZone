@@ -138,9 +138,10 @@
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Fantasy WarsContent\Fantasy WarsContent.contentproj">
-      <Name>Fantasy_WarsContent</Name>
+    <ProjectReference Include="..\Fantasy WarsContent\MassiveDangerZoneContent.contentproj">
+      <Name>MassiveDangerZoneContent %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>
+      <Project>{F94AB692-F758-4F82-BDC5-152FAED63626}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
