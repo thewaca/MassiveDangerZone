@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using DangerZone.ScreenManagement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MassiveDangerZone
+namespace MassiveDangerZone.ScreenManagement
 {
     class BackgroundScreen : GameScreen
     {
