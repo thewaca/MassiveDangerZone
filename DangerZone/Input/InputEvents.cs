@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
 
-namespace MassiveDangerZone.Input
+namespace DangerZone.Input
 {
     public class KeyEventArgs : EventArgs
     {

@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using MassiveDangerZone.Input;
+using DangerZone.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace MassiveDangerZone.ScreenManagement
+namespace DangerZone.ScreenManagement
 {
-    class MenuScreen: GameScreen
+    public class MenuScreen: GameScreen
     {
         #region Fields
 
@@ -51,8 +51,6 @@ namespace MassiveDangerZone.ScreenManagement
         /// </summary>
         public override void LoadContent()
         {
-            var game = (FantasyWars)ScreenManager.Game;
-
             bindings.Add(new KeyBinding(inputEvents, Keys.Up, this.HandleUp, KeyState.Down));
             bindings.Add(new KeyBinding(inputEvents, Keys.Down, this.HandleDown, KeyState.Down));
             bindings.Add(new KeyBinding(inputEvents, Keys.Enter, this.HandleSelect, KeyState.Down));

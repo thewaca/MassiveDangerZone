@@ -2,9 +2,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MassiveDangerZone.ScreenManagement
+namespace DangerZone.ScreenManagement
 {
-    class MenuEntry
+    public class MenuEntry
     {
         #region Fields
 

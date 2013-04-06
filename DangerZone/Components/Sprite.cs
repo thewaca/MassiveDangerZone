@@ -5,9 +5,9 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MassiveDangerZone.Components
+namespace DangerZone.Components
 {
-    class Sprite
+    public class Sprite
     {
         public Texture2D Texture;
         public Vector2 Origin;

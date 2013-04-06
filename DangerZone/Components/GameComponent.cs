@@ -1,12 +1,12 @@
 ﻿using System;
-using MassiveDangerZone.ScreenManagement;
+using DangerZone.ScreenManagement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MassiveDangerZone.Components
+namespace DangerZone.Components
 {
-    class GameComponent
+    public class GameComponent
     {
         protected readonly GameScreen Screen;
 

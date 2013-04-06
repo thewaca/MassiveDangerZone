@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Input;
 
-namespace MassiveDangerZone.Input
+namespace DangerZone.Input
 {
-    class KeyBinding
+    public class KeyBinding
     {
 
         // TODO: implement me

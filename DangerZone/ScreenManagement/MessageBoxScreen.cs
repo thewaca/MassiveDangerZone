@@ -1,13 +1,13 @@
 ﻿using System;
-using MassiveDangerZone.Input;
+using DangerZone.Input;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MassiveDangerZone.ScreenManagement
+namespace DangerZone.ScreenManagement
 {
-    class MessageBoxScreen:GameScreen
+    public class MessageBoxScreen:GameScreen
     {
         #region Fields
 

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using MassiveDangerZone.Input;
+using DangerZone.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 
-namespace MassiveDangerZone.ScreenManagement
+namespace DangerZone.ScreenManagement
 {
     /// <summary>
     /// Enum describes the screen transition state.
@@ -19,7 +19,7 @@ namespace MassiveDangerZone.ScreenManagement
     }
 
 
-    class GameScreen
+    public class GameScreen
     {
         #region Properties
 

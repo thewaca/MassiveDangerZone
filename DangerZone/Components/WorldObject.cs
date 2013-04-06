@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MassiveDangerZone.ScreenManagement;
+using DangerZone.ScreenManagement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MassiveDangerZone.Components
+namespace DangerZone.Components
 {
-    class WorldObject: DrawableGameComponent
+    public class WorldObject: DrawableGameComponent
     {
         public WorldObject(GameScreen screen, Vector3 position) : base(screen)
         {

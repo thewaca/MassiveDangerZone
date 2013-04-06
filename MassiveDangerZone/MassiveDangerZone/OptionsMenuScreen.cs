@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using MassiveDangerZone.ScreenManagement;
+using DangerZone.ScreenManagement;
 
 namespace MassiveDangerZone
 {
