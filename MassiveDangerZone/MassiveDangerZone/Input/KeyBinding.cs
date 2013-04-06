@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Input;
 
-namespace Fantasy_Wars.Input
+namespace MassiveDangerZone.Input
 {
     class KeyBinding
     {

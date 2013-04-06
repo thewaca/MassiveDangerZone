@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Fantasy_Wars.ScreenManagement
+namespace MassiveDangerZone.ScreenManagement
 {
     class MenuEntry
     {

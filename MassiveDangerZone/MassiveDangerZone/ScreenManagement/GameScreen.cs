@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Fantasy_Wars.Input;
+using MassiveDangerZone.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 
-namespace Fantasy_Wars.ScreenManagement
+namespace MassiveDangerZone.ScreenManagement
 {
     /// <summary>
     /// Enum describes the screen transition state.

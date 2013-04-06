@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Fantasy_Wars.Components
+namespace MassiveDangerZone.Components
 {
     class Sprite
     {

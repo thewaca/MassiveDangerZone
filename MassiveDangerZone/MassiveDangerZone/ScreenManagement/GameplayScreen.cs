@@ -1,11 +1,11 @@
 ﻿using System;
-using Fantasy_Wars.Input;
+using MassiveDangerZone.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Fantasy_Wars.ScreenManagement
+namespace MassiveDangerZone.ScreenManagement
 {
     class GameplayScreen:GameScreen
     {

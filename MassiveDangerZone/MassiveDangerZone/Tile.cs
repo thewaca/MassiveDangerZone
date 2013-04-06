@@ -1,10 +1,10 @@
-﻿using Fantasy_Wars.Components;
-using Fantasy_Wars.ScreenManagement;
+﻿using MassiveDangerZone.Components;
+using MassiveDangerZone.ScreenManagement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Fantasy_Wars
+namespace MassiveDangerZone
 {
     class Tile : WorldObject
     {

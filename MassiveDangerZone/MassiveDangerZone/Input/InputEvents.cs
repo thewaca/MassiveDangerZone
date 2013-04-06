@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
 
-namespace Fantasy_Wars.Input
+namespace MassiveDangerZone.Input
 {
     public class KeyEventArgs : EventArgs
     {

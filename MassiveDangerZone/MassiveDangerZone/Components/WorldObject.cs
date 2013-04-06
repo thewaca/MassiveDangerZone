@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Fantasy_Wars.ScreenManagement;
+using MassiveDangerZone.ScreenManagement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Fantasy_Wars.Components
+namespace MassiveDangerZone.Components
 {
     class WorldObject: DrawableGameComponent
     {

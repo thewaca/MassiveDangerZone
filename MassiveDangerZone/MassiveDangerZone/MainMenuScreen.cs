@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Fantasy_Wars.ScreenManagement;
+using MassiveDangerZone.ScreenManagement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace Fantasy_Wars
+namespace MassiveDangerZone
 {
     class MainMenuScreen : MenuScreen
     {

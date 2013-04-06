@@ -1,10 +1,10 @@
 ﻿using System;
-using Fantasy_Wars.ScreenManagement;
+using MassiveDangerZone.ScreenManagement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Fantasy_Wars.Components
+namespace MassiveDangerZone.Components
 {
     class GameComponent
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace Fantasy_Wars
+namespace MassiveDangerZone
 {
 #if WINDOWS || XBOX
     static class Program
