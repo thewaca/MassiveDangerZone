@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using DrawableGameComponent = DangerZone.Components.DrawableGameComponent;
 
-namespace MassiveDangerZone
+namespace MassiveDangerZone.Components
 {
     class Map : DrawableGameComponent
     {

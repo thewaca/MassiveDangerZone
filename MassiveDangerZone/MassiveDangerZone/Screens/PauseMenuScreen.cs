@@ -1,8 +1,7 @@
 ﻿using System;
 using DangerZone.ScreenManagement;
-using MassiveDangerZone.ScreenManagement;
 
-namespace MassiveDangerZone
+namespace MassiveDangerZone.Screens
 {
     class PauseMenuScreen:MenuScreen
     {

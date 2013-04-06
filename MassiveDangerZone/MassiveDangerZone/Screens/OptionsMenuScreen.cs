@@ -1,7 +1,7 @@
 ﻿using System;
 using DangerZone.ScreenManagement;
 
-namespace MassiveDangerZone
+namespace MassiveDangerZone.Screens
 {
     class OptionsMenuScreen:MenuScreen
     {

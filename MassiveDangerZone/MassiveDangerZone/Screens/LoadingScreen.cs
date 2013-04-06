@@ -3,7 +3,7 @@ using DangerZone.ScreenManagement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MassiveDangerZone
+namespace MassiveDangerZone.Screens
 {
     class LoadingScreen:GameScreen
     {

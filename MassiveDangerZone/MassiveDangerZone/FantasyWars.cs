@@ -1,6 +1,6 @@
 using DangerZone.Input;
 using DangerZone.ScreenManagement;
-using MassiveDangerZone.ScreenManagement;
+using MassiveDangerZone.Screens;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 

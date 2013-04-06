@@ -1,9 +1,8 @@
 ﻿using System;
 using DangerZone.ScreenManagement;
-using MassiveDangerZone.ScreenManagement;
 using Microsoft.Xna.Framework;
 
-namespace MassiveDangerZone
+namespace MassiveDangerZone.Screens
 {
     class MainMenuScreen : MenuScreen
     {
