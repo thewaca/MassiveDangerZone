@@ -16,12 +16,11 @@ namespace MassiveDangerZone.Screens
         private ContentManager _content;
         private SpriteFont _gameFont;
 
-        private Random _random = new Random();
+        public Random _random = new Random();
 
         private float _pauseAlpha;
 
         private Map _map;
-        private Army army1;
 
         #endregion
 
@@ -46,7 +45,7 @@ namespace MassiveDangerZone.Screens
         /// </summary>
         public override void LoadContent()
         {
-            var game = (FantasyWars) ScreenManager.Game;
+            var game = (MassiveDangerZone) ScreenManager.Game;
 
             bindings.Add(new KeyBinding(inputEvents, Keys.Escape, this.HandlePause, KeyState.Down));
 
@@ -55,11 +54,8 @@ namespace MassiveDangerZone.Screens
 
             _gameFont = _content.Load<SpriteFont>("gamefont");
 
-            _map = new Map(this);
+            _map = new Map(this, 32, 16);
             _map.LoadContent(_content);
-
-            army1 = new Army(this);
-            army1.LoadContent(_content);
 
             // once the load has finished, we use ResetElapsedTime to tell the game's
             // timing mechanism that we have just finished a very long frame, and that
@@ -76,7 +72,6 @@ namespace MassiveDangerZone.Screens
         public override void UnloadContent()
         {
             this._map.UnLoadContent();
-            this.army1.UnLoadContent();
 
             _content.Unload();
 
@@ -98,7 +93,6 @@ namespace MassiveDangerZone.Screens
                                                        bool coveredByOtherScreen)
         {
             this._map.Update(gameTime);
-            this.army1.Update(gameTime);
 
             base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
         }
@@ -119,7 +113,6 @@ namespace MassiveDangerZone.Screens
         public override void Draw(GameTime gameTime)
         {
             this._map.Draw(gameTime, ScreenManager.SpriteBatch);
-            this.army1.Draw(gameTime, ScreenManager.SpriteBatch);
         }
 
 

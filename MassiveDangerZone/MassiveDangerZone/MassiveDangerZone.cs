@@ -3,16 +3,18 @@ using DangerZone.ScreenManagement;
 using MassiveDangerZone.Screens;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace MassiveDangerZone
 {
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class FantasyWars : Microsoft.Xna.Framework.Game
+    public class MassiveDangerZone : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
         ScreenManager screenManager;
+        public static readonly Random rand = new Random((int)DateTime.Now.ToFileTime());
         // By preloading any assets used by UI rendering, we avoid framerate glitches
         // when they suddenly need to be loaded in the middle of a menu transition.
         static readonly string[] preloadAssets =
@@ -21,14 +23,14 @@ namespace MassiveDangerZone
         };
         public InputEvents inputEvents;
 
-        public FantasyWars()
+        public MassiveDangerZone()
         {
             Content.RootDirectory = "Content";
 
             graphics = new GraphicsDeviceManager(this)
                            {
-                               PreferredBackBufferWidth = 853,
-                               PreferredBackBufferHeight = 480
+                               PreferredBackBufferWidth = 1280,
+                               PreferredBackBufferHeight = 720
                            };
 
             // Create the screen manager component.

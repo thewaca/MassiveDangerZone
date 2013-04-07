@@ -38,7 +38,7 @@ namespace MassiveDangerZone.Screens
 
         public override void LoadContent()
         {
-            var game = (FantasyWars) ScreenManager.Game;
+            var game = (MassiveDangerZone) ScreenManager.Game;
             base.LoadContent();
         }
 

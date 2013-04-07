@@ -3,39 +3,49 @@ using DangerZone.ScreenManagement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using DrawableGameComponent = DangerZone.Components.DrawableGameComponent;
 
 namespace MassiveDangerZone.Components
 {
-    class Tile : WorldObject
+    class Tile : DrawableGameComponent
     {
-        public Tile(GameScreen screen, Vector3 position) : base(screen, position)
+        private static readonly Vector2 size = new Vector2(32, 32);
+        private static readonly int percentPlainGrass = 95;
+        private Vector3 position;
+        private Vector2 drawPos;
+        public Tile(GameScreen screen, Vector3 position)
+            : base(screen)
         {
+            this.position = position;
+            drawPos = new Vector2(position.X * size.X, position.Y * size.Y);
         }
-
-        private Sprite Border;
 
         public override void LoadContent(ContentManager contentManager)
         {
-            this.Sprite = new Sprite()
+            int type = MassiveDangerZone.rand.Next(0, 100);
+            Rectangle source;
+            if (type > percentPlainGrass)
+            {
+                int tilex = MassiveDangerZone.rand.Next(0, 3);
+                source = Sprite.GetSheetRectangle(size, tilex, 5);
+            }
+            else
+            {
+                source = Sprite.GetSheetRectangle(size, 1, 3);
+            }
+            this.Sprite = new TileSprite()
                               {
                                   Color = Color.White,
-                                  Origin = new Vector2(32, 16),
-                                  Texture = contentManager.Load<Texture2D>("grass")
-                              };
-            this.Border = new Sprite()
-                              {
-                                  Color = new Color(92, 51, 23),
-                                  Origin = new Vector2(64, 17),
-                                  Texture = contentManager.Load<Texture2D>("border")
+                                  Origin = new Vector2(size.X/2, size.Y/2),
+                                  source = source,
+                                  Texture = contentManager.Load<Texture2D>(@"Tiles\grass")
                               };
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            var coords = WorldObject.ScreenCoords(this.Screen.ScreenManager.Game.GraphicsDevice.Viewport, Position);
-
-            Sprite.Draw(spriteBatch, coords);
-            Border.Draw(spriteBatch, coords);
+            Sprite.Draw(spriteBatch, drawPos);
         }
     }
 }

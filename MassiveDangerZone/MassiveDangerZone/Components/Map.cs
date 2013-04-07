@@ -37,7 +37,7 @@ namespace MassiveDangerZone.Components
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            this._spriteBatch.Begin();
+            this._spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Matrix.CreateTranslation(0,0,0));
 
             for (int x = 0; x < maxX; x++)
             {

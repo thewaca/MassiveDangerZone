@@ -8,7 +8,7 @@ namespace MassiveDangerZone
         /// </summary>
         static void Main(string[] args)
         {
-            using (FantasyWars game = new FantasyWars())
+            using (MassiveDangerZone game = new MassiveDangerZone())
             {
                 game.Run();
             }

@@ -13,14 +13,19 @@ namespace DangerZone.Components
         public Vector2 Origin;
         public Color Color;
 
-        public void Draw(SpriteBatch spriteBatch, int x, int y)
+        public virtual void Draw(SpriteBatch spriteBatch, int x, int y)
         {
             this.Draw(spriteBatch, new Vector2(x, y));
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 position)
+        public virtual void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
             spriteBatch.Draw(Texture, position - Origin, Color);
+        }
+
+        public static Rectangle GetSheetRectangle(Vector2 spriteSize, int column, int row)
+        {
+            return new Rectangle(column * (int)spriteSize.X, row * (int)spriteSize.Y, (int)spriteSize.X, (int)spriteSize.Y);
         }
     }
 

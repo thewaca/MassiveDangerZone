@@ -68,6 +68,7 @@
     <Compile Include="Components\DrawableGameComponent.cs" />
     <Compile Include="Components\GameComponent.cs" />
     <Compile Include="Components\Sprite.cs" />
+    <Compile Include="Components\TileSprite.cs" />
     <Compile Include="Components\WorldObject.cs" />
     <Compile Include="Input\InputEvents.cs" />
     <Compile Include="Input\KeyBinding.cs" />
