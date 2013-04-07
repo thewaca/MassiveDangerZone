@@ -19,7 +19,10 @@ namespace MassiveDangerZone.Components
         public override void LoadContent(ContentManager contentManager)
         {
             _map = new Map(Screen, 32, 16);
-            player = new Character(Screen);
+            player = new Character(Screen)
+                {
+                    position = new Vector2(100,100)
+                };
             _map.LoadContent(contentManager);
             player.LoadContent(contentManager);
         }
