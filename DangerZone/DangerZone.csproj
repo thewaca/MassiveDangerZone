@@ -65,6 +65,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\Character.cs" />
+    <Compile Include="Components\CharacterSprite.cs" />
     <Compile Include="Components\DrawableGameComponent.cs" />
     <Compile Include="Components\GameComponent.cs" />
     <Compile Include="Components\Sprite.cs" />
