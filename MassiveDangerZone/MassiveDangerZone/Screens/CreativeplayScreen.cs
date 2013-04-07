@@ -17,9 +17,8 @@ namespace MassiveDangerZone.Screens
         #region Fields
 
         private ContentManager _content;
-        private SpriteFont _gameFont;
 
-        private Map _map;
+        List<Button> buttons;
 
         #endregion
 
@@ -36,6 +35,9 @@ namespace MassiveDangerZone.Screens
         {
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
+
+            buttons = new List<Button>();
+            buttons.Add(new TileButton(new Vector2(), new Vector2(), @"", 0, 0, this));
         }
 
 
@@ -50,12 +52,7 @@ namespace MassiveDangerZone.Screens
 
             if (_content == null)
                 _content = new ContentManager(ScreenManager.Game.Services, "Content");
-
-            _gameFont = _content.Load<SpriteFont>("gamefont");
-
-            _map = new Map(this, 32, 16);
-            _map.LoadContent(_content);
-
+            
             // once the load has finished, we use ResetElapsedTime to tell the game's
             // timing mechanism that we have just finished a very long frame, and that
             // it should not try to catch up.
@@ -70,8 +67,6 @@ namespace MassiveDangerZone.Screens
         /// </summary>
         public override void UnloadContent()
         {
-            this._map.UnLoadContent();
-
             _content.Unload();
 
             base.UnloadContent();
@@ -91,7 +86,6 @@ namespace MassiveDangerZone.Screens
         public override void Update(GameTime gameTime, bool otherScreenHasFocus,
                                                        bool coveredByOtherScreen)
         {
-            this._map.Update(gameTime);
 
             base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
         }
@@ -111,7 +105,6 @@ namespace MassiveDangerZone.Screens
         /// </summary>
         public override void Draw(GameTime gameTime)
         {
-            this._map.Draw(gameTime, ScreenManager.SpriteBatch);
         }
 
         #endregion
