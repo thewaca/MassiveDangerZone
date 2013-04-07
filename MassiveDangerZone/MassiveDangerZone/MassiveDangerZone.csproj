@@ -108,6 +108,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\World.cs" />
     <Compile Include="Screens\BackgroundScreen.cs" />
     <Compile Include="Screens\GameplayScreen.cs" />
     <Compile Include="Screens\LoadingScreen.cs" />

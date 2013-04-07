@@ -66,12 +66,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\Character.cs" />
-    <Compile Include="Components\CharacterSprite.cs" />
+    <Compile Include="Sprites\CharacterSprite.cs" />
     <Compile Include="Components\DrawableGameComponent.cs" />
     <Compile Include="Components\GameComponent.cs" />
-    <Compile Include="Components\Sprite.cs" />
-    <Compile Include="Components\TileSprite.cs" />
-    <Compile Include="Components\WorldObject.cs" />
+    <Compile Include="Sprites\Sprite.cs" />
+    <Compile Include="Sprites\TileSprite.cs" />
     <Compile Include="Input\InputEvents.cs" />
     <Compile Include="Input\KeyBinding.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

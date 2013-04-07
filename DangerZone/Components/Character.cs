@@ -1,5 +1,6 @@
 ﻿using System;
 using DangerZone.ScreenManagement;
+using DangerZone.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;

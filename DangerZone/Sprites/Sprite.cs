@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace DangerZone.Components
+namespace DangerZone.Sprites
 {
     public class Sprite
     {

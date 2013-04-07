@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
+using DangerZone.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace DangerZone.Components
+namespace DangerZone.Sprites
 {
     public class CharacterSprite:Sprite
     {
         public enum State
         {
-            Casting, Thrusting, Walking, Swinging, Shooting, Dying, Idle
+            Casting, Thrusting, Walking, Swinging, Shooting, Dying
         }
 
         public enum Facing
@@ -18,7 +19,6 @@ namespace DangerZone.Components
 
         public static readonly Dictionary<State, uint> frames = new Dictionary<State, uint>
             {
-                {State.Idle, 1},
                 {State.Casting, 7},
                 {State.Thrusting, 8},
                 {State.Walking, 9},
@@ -35,7 +35,9 @@ namespace DangerZone.Components
             row += (int) facing;
             var column = (int)frame;
 
-            spriteBatch.Draw(Texture, position, new Rectangle((int)size.X * column, (int)size.Y * row, (int)size.X, (int)size.Y), Color);
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Matrix.CreateTranslation(position.X, position.Y, 0));
+            spriteBatch.Draw(Texture, Vector2.Zero, new Rectangle((int)size.X * column, (int)size.Y * row, (int)size.X, (int)size.Y), Color);
+            spriteBatch.End();
         }
     }
 }
