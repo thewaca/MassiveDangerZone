@@ -11,7 +11,6 @@ namespace MassiveDangerZone.Components
         private Tile[,] tiles;
         private int maxX;
         private int maxY;
-        SpriteBatch _spriteBatch;
 
         public Map(GameScreen screen, int x, int y) : base(screen)
         {
@@ -22,8 +21,6 @@ namespace MassiveDangerZone.Components
 
         public override void LoadContent(ContentManager contentManager)
         {
-            this._spriteBatch = new SpriteBatch(Screen.ScreenManager.Game.GraphicsDevice);
-
             for(int x = 0; x < maxX; x++)
             {
                 for (int y = 0; y < maxY; y++)
@@ -37,17 +34,17 @@ namespace MassiveDangerZone.Components
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            this._spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Matrix.CreateTranslation(0,0,0));
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Matrix.CreateTranslation(0,0,0));
 
             for (int x = 0; x < maxX; x++)
             {
                 for (int y = 0; y < maxY; y++)
                 {
-                    this.tiles[x, y].Draw(gameTime, this._spriteBatch);
+                    this.tiles[x, y].Draw(gameTime, spriteBatch);
                 }
             }
 
-            this._spriteBatch.End();
+            spriteBatch.End();
         }
     }
 }

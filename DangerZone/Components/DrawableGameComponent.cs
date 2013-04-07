@@ -1,5 +1,6 @@
 ﻿using System;
 using DangerZone.ScreenManagement;
+using DangerZone.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -19,7 +20,7 @@ namespace DangerZone.Components
             throw new NotImplementedException();
         }
 
-        public virtual void UnLoadContent()
+        public virtual void UnloadContent()
         {
         }
 

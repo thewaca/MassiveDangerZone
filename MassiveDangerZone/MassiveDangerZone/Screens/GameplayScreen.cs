@@ -14,9 +14,8 @@ namespace MassiveDangerZone.Screens
         #region Fields
 
         private ContentManager _content;
-        private SpriteFont _gameFont;
 
-        private Map _map;
+        private World world;
 
         #endregion
 
@@ -46,17 +45,15 @@ namespace MassiveDangerZone.Screens
             bindings.Add(new KeyBinding(inputEvents, Keys.Escape, this.HandlePause, KeyState.Down));
 
             if (_content == null)
-                _content = new ContentManager(ScreenManager.Game.Services, "Content");
+                _content = new ContentManager(game.Services, "Content");
 
-            _gameFont = _content.Load<SpriteFont>("gamefont");
-
-            _map = new Map(this, 32, 16);
-            _map.LoadContent(_content);
+            world = new World(this);
+            world.LoadContent(_content);
 
             // once the load has finished, we use ResetElapsedTime to tell the game's
             // timing mechanism that we have just finished a very long frame, and that
             // it should not try to catch up.
-            ScreenManager.Game.ResetElapsedTime();
+            game.ResetElapsedTime();
 
             base.LoadContent();
         }
@@ -67,7 +64,7 @@ namespace MassiveDangerZone.Screens
         /// </summary>
         public override void UnloadContent()
         {
-            this._map.UnLoadContent();
+            world.UnloadContent();
 
             _content.Unload();
 
@@ -88,7 +85,7 @@ namespace MassiveDangerZone.Screens
         public override void Update(GameTime gameTime, bool otherScreenHasFocus,
                                                        bool coveredByOtherScreen)
         {
-            this._map.Update(gameTime);
+            if (IsActive) this.world.Update(gameTime);
 
             base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
         }
@@ -108,7 +105,7 @@ namespace MassiveDangerZone.Screens
         /// </summary>
         public override void Draw(GameTime gameTime)
         {
-            this._map.Draw(gameTime, ScreenManager.SpriteBatch);
+            this.world.Draw(gameTime, ScreenManager.SpriteBatch);
         }
 
 
