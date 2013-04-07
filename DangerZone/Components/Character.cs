@@ -23,7 +23,9 @@ namespace DangerZone.Components
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             var frame = getFrame(gameTime, CharacterSprite.frames[this.currentState]);
-            this.sprite.Draw(spriteBatch, this.currentState, this.facing, frame, position);
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Matrix.CreateTranslation(position.X, position.Y, 0));
+            this.sprite.Draw(spriteBatch, this.currentState, this.facing, frame);
+            spriteBatch.End();
         }
 
         public CharacterSprite.State currentState = CharacterSprite.State.Walking;
