@@ -8,22 +8,27 @@ namespace MassiveDangerZone.Components
 {
     class Map : DrawableGameComponent
     {
-        private readonly Tile[,] tiles = new Tile[10,10];
+        private Tile[,] tiles;
+        private int maxX;
+        private int maxY;
         SpriteBatch _spriteBatch;
 
-        public Map(GameScreen screen) : base(screen)
+        public Map(GameScreen screen, int x, int y) : base(screen)
         {
+            maxX = x;
+            maxY = y;
+            tiles = new Tile[maxX, maxY];
         }
 
         public override void LoadContent(ContentManager contentManager)
         {
             this._spriteBatch = new SpriteBatch(Screen.ScreenManager.Game.GraphicsDevice);
 
-            for(var x = 0; x < 10; x++)
+            for(int x = 0; x < maxX; x++)
             {
-                for (int y = 0; y < 10; y++)
+                for (int y = 0; y < maxY; y++)
                 {
-                    var tile = new Tile(Screen, new Vector3(x, y, y == 2 ? 1 : 0));
+                    Tile tile = new Tile(Screen, new Vector3(x, y, 0));
                     tile.LoadContent(contentManager);
                     tiles[x,y] = tile;
                 }
@@ -32,35 +37,14 @@ namespace MassiveDangerZone.Components
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            var x = 0;
-            var y = 0;
-            var xLen = this.tiles.GetLength(0);
-            var yLen = this.tiles.GetLength(1);
-
             this._spriteBatch.Begin();
 
-            while(x < xLen && y < yLen)
+            for (int x = 0; x < maxX; x++)
             {
-                var tile = this.tiles[x, y];
-                // Console.WriteLine("drawing tile at ({0}, {1})", x, y);
-                tile.Draw(gameTime, this._spriteBatch);
-                x++;
-                y--;
-
-                if(y < 0 || x >= xLen)
+                for (int y = 0; y < maxY; y++)
                 {
-                    if(x >= yLen)
-                    {
-                        x = y + 2;
-                        y = yLen - 1;
-                    }
-                    else
-                    {
-                        y = x;
-                        x = 0;
-                    }
+                    this.tiles[x, y].Draw(gameTime, this._spriteBatch);
                 }
-
             }
 
             this._spriteBatch.End();
