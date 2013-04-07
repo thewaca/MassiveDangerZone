@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace DangerZone.Components
@@ -11,7 +7,7 @@ namespace DangerZone.Components
     {
         public Texture2D Texture;
         public Vector2 Origin;
-        public Color Color;
+        public Color Color = Color.White;
 
         public virtual void Draw(SpriteBatch spriteBatch, int x, int y)
         {
@@ -28,5 +24,4 @@ namespace DangerZone.Components
             return new Rectangle(column * (int)spriteSize.X, row * (int)spriteSize.Y, (int)spriteSize.X, (int)spriteSize.Y);
         }
     }
-
 }

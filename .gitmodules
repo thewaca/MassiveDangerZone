@@ -1,0 +1,3 @@
+[submodule "MassiveDangerZone/MassiveDangerZoneContent/sprites"]
+	path = MassiveDangerZone/MassiveDangerZoneContent/sprites
+	url = git@github.com:makrohn/Universal-LPC-spritesheet.git
