@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using DangerZone.Input;
 using DangerZone.ScreenManagement;
 using MassiveDangerZone.Components;
@@ -9,7 +12,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MassiveDangerZone.Screens
 {
-    class GameplayScreen : GameScreen
+    class CreativeplayScreen : GameScreen
     {
         #region Fields
 
@@ -29,7 +32,7 @@ namespace MassiveDangerZone.Screens
         /// <summary>
         /// Constructor.
         /// </summary>
-        public GameplayScreen()
+        public CreativeplayScreen()
         {
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
@@ -110,7 +113,6 @@ namespace MassiveDangerZone.Screens
         {
             this._map.Draw(gameTime, ScreenManager.SpriteBatch);
         }
-
 
         #endregion
     }
