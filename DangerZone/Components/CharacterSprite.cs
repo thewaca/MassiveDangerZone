@@ -8,7 +8,7 @@ namespace DangerZone.Components
     {
         public enum State
         {
-            Idle, Casting, Thrusting, Walking, Swinging, Shooting, Dying
+            Casting, Thrusting, Walking, Swinging, Shooting, Dying, Idle
         }
 
         public enum Facing
@@ -27,7 +27,7 @@ namespace DangerZone.Components
                 {State.Dying, 6}
             };
 
-        public static readonly Vector2 size = new Vector2(32, 32);
+        public static readonly Vector2 size = new Vector2(64, 64);
 
         public void Draw(SpriteBatch spriteBatch, State state, Facing facing, uint frame, Vector2 position)
         {
