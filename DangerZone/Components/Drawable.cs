@@ -1,11 +1,11 @@
-﻿using Artemis.Interface;
+﻿using System.Collections.Generic;
+using Artemis.Interface;
 using DangerZone.Sprites;
 
 namespace DangerZone.Components
 {
     public class Drawable:IComponent
     {
-        protected Sprite[] actualSprites;
-        public Sprite[] sprites { get { return this.actualSprites; } set { this.actualSprites = value; } }
+        public Sprite sprite;
     }
 }

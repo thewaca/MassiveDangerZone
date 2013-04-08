@@ -1,5 +1,8 @@
-﻿using Artemis;
+﻿using System;
+using System.Diagnostics;
+using Artemis;
 using Artemis.System;
+using DangerZone.Components;
 using DangerZone.ScreenManagement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -28,7 +31,8 @@ namespace MassiveDangerZone.Components
 
             entityWorld = new EntityWorld();
             entityWorld.InitializeAll(true);
-            entityWorld.CreateEntityFromTemplate(CharacterTemplate.Name);
+            var entity = entityWorld.CreateEntityFromTemplate(CharacterTemplate.Name);
+            entity.Refresh();
         }
 
         public override void UnloadContent()

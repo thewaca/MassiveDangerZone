@@ -74,12 +74,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\Drawable.cs" />
-    <Compile Include="Components\DrawableCharacter.cs" />
     <Compile Include="Components\Position.cs" />
     <Compile Include="ScreenManagement\Button.cs" />
     <Compile Include="Components\Character.cs" />
     <Compile Include="ScreenManagement\TileButton.cs" />
     <Compile Include="Sprites\CharacterSprite.cs" />
+    <Compile Include="Sprites\CharacterSpriteLayer.cs" />
     <Compile Include="Components\DrawableGameComponent.cs" />
     <Compile Include="Components\GameComponent.cs" />
     <Compile Include="Sprites\SpriteOld.cs" />

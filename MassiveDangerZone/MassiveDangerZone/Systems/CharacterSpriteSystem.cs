@@ -13,40 +13,36 @@ namespace MassiveDangerZone.Systems
     class CharacterSpriteSystem:EntityProcessingSystem
     {
 
-        public CharacterSpriteSystem() : base(Aspect.All(typeof(Character), typeof(DrawableCharacter)))
+        public CharacterSpriteSystem() : base(Aspect.All(typeof(Character), typeof(Drawable)))
         {
             
         }
 
         private ComponentMapper<Character> characterMapper;
-        private ComponentMapper<DrawableCharacter> drawableCharacterMapper;
+        private ComponentMapper<Drawable> drawableMapper;
 
         public override void LoadContent()
         {
             this.characterMapper = new ComponentMapper<Character>(EntityWorld);
-            this.drawableCharacterMapper = new ComponentMapper<DrawableCharacter>(EntityWorld);
+            this.drawableMapper = new ComponentMapper<Drawable>(EntityWorld);
         }
 
         public override void  Process(Entity e)
         {
             var character = this.characterMapper.Get(e);
-            var drawableCharacter = this.drawableCharacterMapper.Get(e);
-            var sprites = drawableCharacter.sprites;
+            var drawable= this.drawableMapper.Get(e);
+            var sprite = (CharacterSprite) drawable.sprite;
             var gender = character.gender;
             var contentManager = BlackBoard.GetEntry<ContentManager>("ContentManager");
 
-            if (sprites.Length == 0 || sprites[0].gender != gender)
+            if (sprite == null)
             {
-                sprites[0] = new CharacterSprite(gender, contentManager);
+                drawable.sprite = sprite = new CharacterSprite(gender, contentManager);
             }
 
-            foreach (var sprite in sprites)
-            {
-                sprite.facing = character.facing;
-                sprite.state = character.state;
-            }
 
-         	base.Process();
+            sprite.facing = character.facing;
+            sprite.state = character.state;
         }
     }
 }

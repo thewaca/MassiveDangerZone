@@ -10,9 +10,9 @@ namespace DangerZone.Components
 {
     public class Character:IComponent
     {
-        public CharacterSprite.Gender gender = CharacterSprite.Gender.Male;
-        public CharacterSprite.Facing facing = CharacterSprite.Facing.Down;
-        public CharacterSprite.State state = CharacterSprite.State.Walking;
+        public CharacterSpriteLayer.Gender gender = CharacterSpriteLayer.Gender.Male;
+        public CharacterSpriteLayer.Facing facing = CharacterSpriteLayer.Facing.Down;
+        public CharacterSpriteLayer.State state = CharacterSpriteLayer.State.Walking;
         // TODO: add equipment
     }
 }
