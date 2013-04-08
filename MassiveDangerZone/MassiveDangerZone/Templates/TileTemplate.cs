@@ -13,14 +13,23 @@ namespace MassiveDangerZone.Templates
 
         public Entity BuildEntity(Entity entity, EntityWorld entityWorld, params object[] args)
         {
-            entity.AddComponent(new Character());
-            entity.AddComponent(new WorldPosition
+            entity.AddComponent(new Tile()
             {
-                position = new Vector2(100, 100)
+                type = (Tile.Type)args[0],
+                zLevel = (int)args[1],
             });
-            entity.AddComponent(new Drawable());
+            entity.AddComponent(new ChunkPosition()
+            {
+                position = (Vector2)args[2]
+            });
 
             return entity;
+        }
+
+        public static void CreateEntity(EntityWorld entityWorld, Tile.Type type, int zLevel, Vector2 position)
+        {
+            Entity entity = entityWorld.CreateEntityFromTemplate(TileTemplate.Name, type, zLevel, position);
+            entity.Refresh();
         }
     }
 }

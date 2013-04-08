@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace DangerZone.Components
 {
-    class Chunk : IComponent
+    public class Chunk : IComponent
     {
         public Entity[,] tiles = null;
     }
