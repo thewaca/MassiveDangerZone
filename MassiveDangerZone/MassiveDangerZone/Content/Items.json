@@ -1,0 +1,24 @@
+﻿{
+  "namespace": "ass",
+  
+  "sword": {
+    "weapon": {
+      "damage": 10,
+      "type": "Sword"
+    },
+    "item": {
+      "value": 50
+    }
+  },
+  
+  "spear": {
+    "weapon": {
+      "damage": 20,
+      "type": "Spear"
+    },
+    "item": {
+      "value": 50,
+	  "dick": [1,2]
+    }
+  }
+}

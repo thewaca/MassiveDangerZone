@@ -1,9 +1,7 @@
-﻿using System;
-using System.Diagnostics;
-using Artemis;
+﻿using Artemis;
 using Artemis.System;
-using DangerZone.Components;
 using DangerZone.ScreenManagement;
+using MassiveDangerZone.Items;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -33,6 +31,9 @@ namespace MassiveDangerZone.Components
             entityWorld.InitializeAll(true);
             var entity = entityWorld.CreateEntityFromTemplate(CharacterTemplate.Name);
             entity.Refresh();
+
+            var converter = new ItemLoader(entityWorld);
+            converter.loadFile("Content\\Items.json");
         }
 
         public override void UnloadContent()
