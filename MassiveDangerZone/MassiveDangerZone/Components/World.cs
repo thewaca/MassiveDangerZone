@@ -1,9 +1,11 @@
-﻿using DangerZone.Components;
+﻿using Artemis;
+using Artemis.System;
 using DangerZone.ScreenManagement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using DrawableGameComponent = DangerZone.Components.DrawableGameComponent;
+using MassiveDangerZone.Templates;
 
 namespace MassiveDangerZone.Components
 {
@@ -14,23 +16,25 @@ namespace MassiveDangerZone.Components
         }
 
         private Map _map;
-        private Character player;
+        private EntityWorld entityWorld;
 
         public override void LoadContent(ContentManager contentManager)
         {
             _map = new Map(Screen, 32, 16);
-            player = new Character(Screen)
-                {
-                    position = new Vector2(100,100)
-                };
             _map.LoadContent(contentManager);
-            player.LoadContent(contentManager);
+
+            EntitySystem.BlackBoard.SetEntry("SpriteBatch", Screen.ScreenManager.SpriteBatch);
+            EntitySystem.BlackBoard.SetEntry("ContentManager", contentManager);
+
+            entityWorld = new EntityWorld();
+            entityWorld.InitializeAll(true);
+            entityWorld.CreateEntityFromTemplate(CharacterTemplate.Name);
         }
 
         public override void UnloadContent()
         {
             _map.UnloadContent();
-            player.UnloadContent();
+            entityWorld.UnloadContent();
 
             base.UnloadContent();
         }
@@ -38,7 +42,7 @@ namespace MassiveDangerZone.Components
         public override void Update(GameTime gameTime)
         {
             this._map.Update(gameTime);
-            player.Update(gameTime);
+            entityWorld.Update();
 
             base.Update(gameTime);
         }
@@ -46,7 +50,7 @@ namespace MassiveDangerZone.Components
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             _map.Draw(gameTime, spriteBatch);
-            player.Draw(gameTime, spriteBatch);
+            entityWorld.Draw();
         }
     }
 }

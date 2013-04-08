@@ -28,7 +28,7 @@ namespace DangerZone.ScreenManagement
 
         public override void LoadContent(ContentManager contentManager)
         {
-            this.Sprite = new Sprite();
+            this.Sprite = new SpriteOld();
             this.Sprite.Color = Color.White;
             this.Sprite.Texture = contentManager.Load<Texture2D>(textureName);
             this.Sprite.Origin = new Vector2(this.Sprite.Texture.Width / 2, this.Sprite.Texture.Height / 2);

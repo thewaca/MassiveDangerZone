@@ -129,6 +129,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="MassiveDangerZone.cs" />
     <Compile Include="Components\Tile.cs" />
+    <Compile Include="Systems\CharacterSpriteSystem.cs" />
+    <Compile Include="Systems\DrawingSystem.cs" />
+    <Compile Include="Templates\CharacterTemplate.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
