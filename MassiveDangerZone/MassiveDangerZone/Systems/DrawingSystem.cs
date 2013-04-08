@@ -36,10 +36,7 @@ namespace MassiveDangerZone.Systems
 
             spriteBatch.Begin();
 
-            foreach(var sprite in drawable.sprites)
-            {
-                sprite.Draw(spriteBatch, position.position, delta);
-            }
+            drawable.sprite.Draw(spriteBatch, position.position, delta);
             spriteBatch.End();
         }
     }

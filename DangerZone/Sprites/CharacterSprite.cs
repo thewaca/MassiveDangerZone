@@ -1,79 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
-using DangerZone.Components;
+using System.Linq;
+using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace DangerZone.Sprites
 {
-    public class CharacterSprite : Sprite
+    public class CharacterSprite:CharacterSpriteLayer
     {
-        public CharacterSprite(Gender gender, ContentManager contentManager)
+        public CharacterSprite(Gender gender, ContentManager contentManager) : base(gender)
         {
-            this.gender = gender;
-
-            string path;
-            switch (gender)
-            {
-                case Gender.Male:
-                    path = "sprites\\body\\male\\tanned";
-                    break;
-                case Gender.Female:
-                    path = "sprites\\body\\female\\tanned";
-                    break;
-                default:
-                    throw new Exception("fuck you");
-            }
-
-            Texture = contentManager.Load<Texture2D>(path);
+            this.contentManager = contentManager;
+            layers.Add(this.createLayer());
         }
 
-        public enum Gender
-        {
-            Male, Female
+        protected readonly ContentManager contentManager;
+
+        protected readonly List<CharacterSpriteLayer> layers = new List<CharacterSpriteLayer>();
+
+        public new Facing facing {
+            get { return layers.Count > 0 ? layers[0].facing : Facing.Down; }
+            set { foreach (var layer in layers) layer.facing = value; }
         }
 
-        public readonly Gender gender;
-
-        public enum State
-        {
-            Casting, Thrusting, Walking, Swinging, Shooting, Dying
-        }
-
-        public State state = State.Walking;
-        public Facing facing = Facing.Down;
-
-        public enum Facing
-        {
-            Up, Left, Down, Right
-        }
-
-        public static readonly Dictionary<State, uint> frames = new Dictionary<State, uint>
-            {
-                {State.Casting, 7},
-                {State.Thrusting, 8},
-                {State.Walking, 9},
-                {State.Swinging, 6},
-                {State.Shooting, 13},
-                {State.Dying, 6}
-            };
-
-        public static readonly Vector2 size = new Vector2(64, 64);
-
-        uint getFrame(TimeSpan delta, uint frames)
-        {
-            const float frameLength = (float)1000/30;
-            return (uint)(delta.TotalMilliseconds / frameLength) % frames;
+        public new State state {
+            get { return layers.Count > 0 ? layers[0].state : State.Walking; }
+            set { foreach (var layer in layers) layer.state = value; }
         }
 
         public override void Draw(SpriteBatch spriteBatch, Vector2 position, TimeSpan delta)
         {
-            var row = (int)state*4;
-            row += (int) facing;
-            var column = (int)getFrame(delta, frames[state]);
+            foreach (var layer in this.layers)
+            {
+                layer.Draw(spriteBatch, position, delta);
+            }
+        }
 
-            spriteBatch.Draw(Texture, position - Origin, GetSheetRectangle(size, column, row), Color);
+        public CharacterSpriteLayer createLayer()
+        {
+            return new CharacterSpriteLayer(gender, contentManager);
         }
     }
 }
