@@ -14,7 +14,7 @@ namespace MassiveDangerZone.Templates
         public Entity BuildEntity(Entity entity, EntityWorld entityWorld, params object[] args)
         {
             entity.AddComponent(new Character());
-            entity.AddComponent(new Position
+            entity.AddComponent(new WorldPosition
             {
                 position = new Vector2(100, 100)
             });

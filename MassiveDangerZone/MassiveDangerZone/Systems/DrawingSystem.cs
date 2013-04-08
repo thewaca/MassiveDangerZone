@@ -12,9 +12,9 @@ namespace MassiveDangerZone.Systems
     class DrawingSystem:EntityProcessingSystem
     {
         private ComponentMapper<Drawable> drawableMapper;
-        private ComponentMapper<Position> positionMapper;
+        private ComponentMapper<WorldPosition> positionMapper;
 
-        public DrawingSystem() : base(Aspect.All(typeof(Drawable), typeof(Position)))
+        public DrawingSystem() : base(Aspect.All(typeof(Drawable), typeof(WorldPosition)))
         {
             
         }
@@ -25,7 +25,7 @@ namespace MassiveDangerZone.Systems
         {
             this.spriteBatch = BlackBoard.GetEntry<SpriteBatch>("SpriteBatch");
             this.drawableMapper = new ComponentMapper<Drawable>(this.EntityWorld);
-            this.positionMapper = new ComponentMapper<Position>(this.EntityWorld);
+            this.positionMapper = new ComponentMapper<WorldPosition>(this.EntityWorld);
         }
 
         public override void Process(Entity entity)

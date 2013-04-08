@@ -73,8 +73,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\Chunk.cs" />
+    <Compile Include="Components\ChunkPosition.cs" />
     <Compile Include="Components\Drawable.cs" />
-    <Compile Include="Components\Position.cs" />
+    <Compile Include="Components\WorldPosition.cs" />
+    <Compile Include="Components\Tile.cs" />
     <Compile Include="ScreenManagement\Button.cs" />
     <Compile Include="Components\Character.cs" />
     <Compile Include="ScreenManagement\TileButton.cs" />
@@ -100,6 +103,10 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
   <!--
       To modify your build process, add your task inside one of the targets below and uncomment it. 
       Other similar extension points exist, see Microsoft.Common.targets.
