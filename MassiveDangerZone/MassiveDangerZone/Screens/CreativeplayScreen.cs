@@ -22,7 +22,7 @@ namespace MassiveDangerZone.Screens
         private Sprite tileBorder;
         private Vector2 borderPos;
 
-        Map map;
+        TileChunk map;
         List<Button> buttons;
 
         #endregion
@@ -43,7 +43,7 @@ namespace MassiveDangerZone.Screens
 
             buttons = new List<Button>();
 
-            map = new Map(this, 32, 32);
+            map = new TileChunk(this, 32, 32);
             borderPos = new Vector2(-1, -1);
         }
 

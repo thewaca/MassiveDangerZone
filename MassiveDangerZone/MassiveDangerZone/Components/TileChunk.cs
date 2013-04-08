@@ -6,13 +6,13 @@ using DrawableGameComponent = DangerZone.Components.DrawableGameComponent;
 
 namespace MassiveDangerZone.Components
 {
-    class Map : DrawableGameComponent
+    class TileChunk : DrawableGameComponent
     {
         private Tile[,] tiles;
         private int maxX;
         private int maxY;
 
-        public Map(GameScreen screen, int x, int y) : base(screen)
+        public TileChunk(GameScreen screen, int x, int y) : base(screen)
         {
             maxX = x;
             maxY = y;

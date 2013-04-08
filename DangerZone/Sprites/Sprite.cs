@@ -10,9 +10,14 @@ namespace DangerZone.Sprites
         public Vector2 Origin = Vector2.Zero;
         public Color Color = Color.White;
 
-        public virtual void Draw(SpriteBatch spriteBatch, Vector2 position, TimeSpan delta)
+        public virtual void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
             spriteBatch.Draw(Texture, position - Origin, Color);
+        }
+
+        public virtual void Draw(SpriteBatch spriteBatch, Vector2 position, TimeSpan delta)
+        {
+            Draw(spriteBatch, position);
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, Vector2 position, Vector2 size)

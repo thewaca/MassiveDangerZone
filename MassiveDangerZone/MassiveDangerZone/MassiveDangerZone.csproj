@@ -122,7 +122,7 @@
     <Compile Include="Screens\GameplayScreen.cs" />
     <Compile Include="Screens\LoadingScreen.cs" />
     <Compile Include="Screens\MainMenuScreen.cs" />
-    <Compile Include="Components\Map.cs" />
+    <Compile Include="Components\TileChunk.cs" />
     <Compile Include="Screens\OptionsMenuScreen.cs" />
     <Compile Include="Screens\PauseMenuScreen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -132,6 +132,7 @@
     <Compile Include="Systems\CharacterSpriteSystem.cs" />
     <Compile Include="Systems\DrawingSystem.cs" />
     <Compile Include="Templates\CharacterTemplate.cs" />
+    <Compile Include="Templates\TileTemplate.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

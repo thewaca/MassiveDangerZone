@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace DangerZone.Components
 {
-    public class Character:IComponent
+    public class Character : IComponent
     {
         public CharacterSprite.Gender gender = CharacterSprite.Gender.Male;
         public CharacterSprite.Facing facing = CharacterSprite.Facing.Down;

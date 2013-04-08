@@ -15,12 +15,12 @@ namespace MassiveDangerZone.Components
         {
         }
 
-        private Map _map;
+        private TileChunk _map;
         private EntityWorld entityWorld;
 
         public override void LoadContent(ContentManager contentManager)
         {
-            _map = new Map(Screen, 32, 16);
+            _map = new TileChunk(Screen, 32, 16);
             _map.LoadContent(contentManager);
 
             EntitySystem.BlackBoard.SetEntry("SpriteBatch", Screen.ScreenManager.SpriteBatch);
