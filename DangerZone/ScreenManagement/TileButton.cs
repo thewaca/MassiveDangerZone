@@ -14,7 +14,7 @@ namespace DangerZone.ScreenManagement
     public class TileButton : Button
     {
         private static readonly Vector2 tileSize = new Vector2(96, 96);
-        private Sprite border;
+        private SpriteOld border;
         private int column, row;
 
         public TileButton(Vector2 position, Vector2 size, string textureName, int column, int row, GameScreen screen)
@@ -32,7 +32,7 @@ namespace DangerZone.ScreenManagement
             this.Sprite.Texture = contentManager.Load<Texture2D>(this.textureName);
             this.Sprite.Origin = new Vector2(size.X / 2, size.Y / 2);
 
-            border = new Sprite();
+            border = new SpriteOld();
             this.border.Color = Color.Gray;
             this.border.Texture = contentManager.Load<Texture2D>("border");
             this.border.Origin = new Vector2(size.X / 2, size.Y / 2);

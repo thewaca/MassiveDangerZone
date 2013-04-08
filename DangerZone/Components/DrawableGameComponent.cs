@@ -13,7 +13,7 @@ namespace DangerZone.Components
         {
         }
 
-        public Sprite Sprite { get; protected set; }
+        public SpriteOld Sprite { get; protected set; }
 
         public virtual void LoadContent(ContentManager contentManager)
         {

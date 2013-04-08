@@ -31,11 +31,11 @@ namespace MassiveDangerZone.Components
             if (type > percentPlainGrass)
             {
                 int tilex = MassiveDangerZone.rand.Next(0, 3);
-                source = Sprite.GetSheetRectangle(size, tilex, 5);
+                source = SpriteOld.GetSheetRectangle(size, tilex, 5);
             }
             else
             {
-                source = Sprite.GetSheetRectangle(size, 1, 3);
+                source = SpriteOld.GetSheetRectangle(size, 1, 3);
             }
             this.Sprite = new TileSprite()
                               {
