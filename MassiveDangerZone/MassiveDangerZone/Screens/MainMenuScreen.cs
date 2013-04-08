@@ -17,16 +17,19 @@ namespace MassiveDangerZone.Screens
         {
             // Create our menu entries.
             MenuEntry playGameMenuEntry = new MenuEntry("Play Game");
+            MenuEntry creativeGameMenuEntry = new MenuEntry("Play Creative");
             MenuEntry optionsMenuEntry = new MenuEntry("Options");
             MenuEntry exitMenuEntry = new MenuEntry("Exit");
 
             // Hook up menu event handlers.
             playGameMenuEntry.Selected += PlayGameMenuEntrySelected;
+            creativeGameMenuEntry.Selected += PlayCreativeMenuEntrySelected;
             optionsMenuEntry.Selected += OptionsMenuEntrySelected;
             exitMenuEntry.Selected += OnCancel;
 
             // Add entries to the menu.
             MenuEntries.Add(playGameMenuEntry);
+            MenuEntries.Add(creativeGameMenuEntry);
             MenuEntries.Add(optionsMenuEntry);
             MenuEntries.Add(exitMenuEntry);
         }
@@ -51,6 +54,14 @@ namespace MassiveDangerZone.Screens
                                new GameplayScreen());
         }
 
+        /// <summary>
+        /// Event handler for when the Play Game menu entry is selected.
+        /// </summary>
+        void PlayCreativeMenuEntrySelected(object sender, EventArgs e)
+        {
+            LoadingScreen.Load(ScreenManager, true, PlayerIndex.One,
+                               new CreativeplayScreen());
+        }
 
         /// <summary>
         /// Event handler for when the Options menu entry is selected.

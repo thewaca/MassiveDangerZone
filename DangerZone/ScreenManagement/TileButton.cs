@@ -13,7 +13,7 @@ namespace DangerZone.ScreenManagement
 {
     public class TileButton : Button
     {
-        private static readonly Vector2 tileSize = new Vector2(32, 32);
+        private static readonly Vector2 tileSize = new Vector2(96, 96);
         private Sprite border;
         private int column, row;
 
@@ -28,14 +28,14 @@ namespace DangerZone.ScreenManagement
         {
             this.Sprite = new TileSprite();
             this.Sprite.Color = Color.White;
-            ((TileSprite)this.Sprite).source = Sprite.GetSheetRectangle(tileSize, column, row);
+            ((TileSprite)this.Sprite).source = new Rectangle(0, 64, (int)tileSize.X, (int)tileSize.Y);
             this.Sprite.Texture = contentManager.Load<Texture2D>(this.textureName);
-            this.Sprite.Origin = new Vector2(tileSize.X / 2, tileSize.Y / 2);
+            this.Sprite.Origin = new Vector2(size.X / 2, size.Y / 2);
 
             border = new Sprite();
             this.border.Color = Color.Gray;
             this.border.Texture = contentManager.Load<Texture2D>("border");
-            this.border.Origin = new Vector2(this.border.Texture.Width / 2, this.border.Texture.Height / 2);
+            this.border.Origin = new Vector2(size.X / 2, size.Y / 2);
         }
 
         public override void Update(GameTime gameTime)
@@ -45,10 +45,14 @@ namespace DangerZone.ScreenManagement
 
         public override void OnMouseMove(object sender, MouseEventArgs e)
         {
-        }
-
-        public override void OnMouseUp(object sender, MouseEventArgs e)
-        {
+            if (hitBox.Contains(e.X, e.Y))
+            {
+                border.Color = Color.Red;
+            }
+            else
+            {
+                border.Color = Color.Gray;
+            }
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

@@ -46,5 +46,15 @@ namespace MassiveDangerZone.Components
 
             spriteBatch.End();
         }
+        public Tile GetTileAt(int x, int y)
+        {
+            int tileX = x / (int)Tile.size.X;
+            int tileY = y / (int)Tile.size.Y;
+            if (tileX < maxX && tileX >= 0 && tileY >= 0 && tileY < maxY)
+            {
+                return tiles[tileX, tileY];
+            }
+            return null;
+        }
     }
 }

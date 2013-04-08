@@ -11,15 +11,17 @@ namespace MassiveDangerZone.Components
 {
     class Tile : DrawableGameComponent
     {
-        private static readonly Vector2 size = new Vector2(32, 32);
+        public static readonly Vector2 size = new Vector2(32, 32);
         private static readonly int percentPlainGrass = 95;
         private Vector3 position;
-        private Vector2 drawPos;
+        public Vector2 drawPos;
         public Tile(GameScreen screen, Vector3 position)
             : base(screen)
         {
             this.position = position;
             drawPos = new Vector2(position.X * size.X, position.Y * size.Y);
+            drawPos.X += size.X / 2;
+            drawPos.Y += size.Y / 2;
         }
 
         public override void LoadContent(ContentManager contentManager)

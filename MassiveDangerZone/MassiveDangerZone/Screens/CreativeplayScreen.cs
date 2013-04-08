@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DangerZone.Input;
+using DangerZone.Sprites;
 using DangerZone.ScreenManagement;
 using MassiveDangerZone.Components;
 using Microsoft.Xna.Framework;
@@ -18,6 +19,10 @@ namespace MassiveDangerZone.Screens
 
         private ContentManager _content;
 
+        private Sprite tileBorder;
+        private Vector2 borderPos;
+
+        Map map;
         List<Button> buttons;
 
         #endregion
@@ -37,7 +42,9 @@ namespace MassiveDangerZone.Screens
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
 
             buttons = new List<Button>();
-            buttons.Add(new TileButton(new Vector2(), new Vector2(), @"", 0, 0, this));
+
+            map = new Map(this, 32, 32);
+            borderPos = new Vector2(-1, -1);
         }
 
 
@@ -49,10 +56,28 @@ namespace MassiveDangerZone.Screens
             var game = (MassiveDangerZone) ScreenManager.Game;
 
             bindings.Add(new KeyBinding(inputEvents, Keys.Escape, this.HandlePause, KeyState.Down));
+            inputEvents.MouseMoveEvent += OnMouseMove;
 
             if (_content == null)
                 _content = new ContentManager(ScreenManager.Game.Services, "Content");
-            
+
+            buttons.Add(new TileButton(new Vector2(game.GraphicsDevice.Viewport.Width - 200, 200), new Vector2(96, 96), @"Tiles\grass", 1, 3, this));
+
+            foreach (Button b in buttons)
+            {
+                b.LoadContent(_content);
+                inputEvents.MouseDownEvent += b.OnMouseDown;
+                inputEvents.MouseUpEvent += b.OnMouseUp;
+                inputEvents.MouseMoveEvent += b.OnMouseMove;
+            }
+
+            tileBorder = new Sprite();
+            tileBorder.Color = Color.Red;
+            tileBorder.Texture = _content.Load<Texture2D>("border");
+            tileBorder.Origin = new Vector2(tileBorder.Texture.Width / 2, tileBorder.Texture.Height / 2);
+
+            map.LoadContent(_content);
+
             // once the load has finished, we use ResetElapsedTime to tell the game's
             // timing mechanism that we have just finished a very long frame, and that
             // it should not try to catch up.
@@ -86,7 +111,7 @@ namespace MassiveDangerZone.Screens
         public override void Update(GameTime gameTime, bool otherScreenHasFocus,
                                                        bool coveredByOtherScreen)
         {
-
+            map.Update(gameTime);
             base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
         }
 
@@ -99,12 +124,40 @@ namespace MassiveDangerZone.Screens
         {
         }
 
+        protected void OnMouseMove(object sender, MouseEventArgs e)
+        {
+            Tile selected = map.GetTileAt(e.X, e.Y);
+            if (selected != null)
+            {
+                borderPos = selected.drawPos;
+            }
+            else
+            {
+                borderPos.X = -1;
+                borderPos.Y = -1;
+            }
+        }
+
 
         /// <summary>
         /// Draws the gameplay screen.
         /// </summary>
         public override void Draw(GameTime gameTime)
         {
+            map.Draw(gameTime, ScreenManager.SpriteBatch);
+            ScreenManager.SpriteBatch.Begin();
+            if ((borderPos.X >= 0) && (borderPos.Y >= 0))
+            {
+                tileBorder.Draw(ScreenManager.SpriteBatch, borderPos);
+            }
+            ScreenManager.SpriteBatch.End();
+
+            ScreenManager.SpriteBatch.Begin();
+            foreach (Button b in buttons)
+            {
+                b.Draw(gameTime, ScreenManager.SpriteBatch);
+            }
+            ScreenManager.SpriteBatch.End();
         }
 
         #endregion

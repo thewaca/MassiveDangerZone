@@ -17,6 +17,7 @@ namespace DangerZone.ScreenManagement
         protected Vector2 size;
         protected string textureName;
         protected Vector2 position;
+        protected Rectangle hitBox;
 
         public Button(Vector2 position, Vector2 size, string textureName, GameScreen screen)
             : base(screen)
@@ -24,6 +25,7 @@ namespace DangerZone.ScreenManagement
             this.position = position;
             this.size = size;
             this.textureName = textureName;
+            this.hitBox = new Rectangle((int)(position.X - size.X / 2), (int)(position.Y - size.Y / 2), (int)size.X, (int)size.Y);
         }
 
         public override void LoadContent(ContentManager contentManager)
@@ -31,7 +33,7 @@ namespace DangerZone.ScreenManagement
             this.Sprite = new Sprite();
             this.Sprite.Color = Color.White;
             this.Sprite.Texture = contentManager.Load<Texture2D>(textureName);
-            this.Sprite.Origin = new Vector2(this.Sprite.Texture.Width / 2, this.Sprite.Texture.Height / 2);
+            this.Sprite.Origin = new Vector2(size.X / 2, size.Y / 2);
         }
 
         public override void Update(GameTime gameTime)
@@ -43,8 +45,24 @@ namespace DangerZone.ScreenManagement
         {
         }
 
+        private bool wasDown;
+        public virtual void OnMouseDown(object sender, MouseEventArgs e)
+        {
+            if (hitBox.Contains(e.X, e.Y))
+            {
+                wasDown = true;
+            }
+        }
+
         public virtual void OnMouseUp(object sender, MouseEventArgs e)
         {
+            if (hitBox.Contains(e.X, e.Y) && wasDown == true)
+            {
+                MessageBoxScreen test = new MessageBoxScreen("Wahoo you clicked the button!");
+
+                Screen.ScreenManager.AddScreen(test, PlayerIndex.One);
+            }
+            wasDown = false;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
