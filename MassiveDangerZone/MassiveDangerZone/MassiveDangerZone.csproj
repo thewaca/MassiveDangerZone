@@ -138,8 +138,10 @@
     <Compile Include="MassiveDangerZone.cs" />
     <Compile Include="Components\Tile.cs" />
     <Compile Include="Systems\CharacterSpriteSystem.cs" />
+    <Compile Include="Systems\ChunkSpriteSystem.cs" />
     <Compile Include="Systems\DrawingSystem.cs" />
     <Compile Include="Templates\CharacterTemplate.cs" />
+    <Compile Include="Templates\ChunkTemplate.cs" />
     <Compile Include="Templates\TileTemplate.cs" />
   </ItemGroup>
   <ItemGroup>

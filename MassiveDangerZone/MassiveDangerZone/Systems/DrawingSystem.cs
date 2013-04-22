@@ -34,6 +34,7 @@ namespace MassiveDangerZone.Systems
         public override void Process(Entity entity)
         {
             var drawable = this.drawableMapper.Get(entity);
+            if (drawable.sprite == null) return;
             var position = this.positionMapper.Get(entity);
             var time = this.world.time;
 

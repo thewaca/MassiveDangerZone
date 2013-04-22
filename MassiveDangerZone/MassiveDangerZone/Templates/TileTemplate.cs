@@ -26,10 +26,11 @@ namespace MassiveDangerZone.Templates
             return entity;
         }
 
-        public static void CreateEntity(EntityWorld entityWorld, Tile.Type type, int zLevel, Vector2 position)
+        public static Entity CreateEntity(EntityWorld entityWorld, Tile.Type type, int zLevel, Vector2 position)
         {
-            Entity entity = entityWorld.CreateEntityFromTemplate(TileTemplate.Name, type, zLevel, position);
+            Entity entity = entityWorld.CreateEntityFromTemplate(Name, type, zLevel, position);
             entity.Refresh();
+            return entity;
         }
     }
 }

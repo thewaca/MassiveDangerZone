@@ -76,6 +76,7 @@
     <Compile Include="Components\Chunk.cs" />
     <Compile Include="Components\ChunkPosition.cs" />
     <Compile Include="Components\Drawable.cs" />
+    <Compile Include="Components\Selectable.cs" />
     <Compile Include="Components\WorldPosition.cs" />
     <Compile Include="Components\Tile.cs" />
     <Compile Include="ScreenManagement\Button.cs" />

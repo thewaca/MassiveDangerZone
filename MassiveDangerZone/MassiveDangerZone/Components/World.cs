@@ -29,14 +29,26 @@ namespace MassiveDangerZone.Components
             EntitySystem.BlackBoard.SetEntry("SpriteBatch", Screen.ScreenManager.SpriteBatch);
             EntitySystem.BlackBoard.SetEntry("ContentManager", contentManager);
             EntitySystem.BlackBoard.SetEntry("World", this);
+            EntitySystem.BlackBoard.SetEntry("GraphicsDevice", Screen.ScreenManager.Game.GraphicsDevice);
 
             entityWorld = new EntityWorld();
             entityWorld.InitializeAll(true);
-            var entity = entityWorld.CreateEntityFromTemplate(CharacterTemplate.Name);
+            Entity entity = entityWorld.CreateEntityFromTemplate(CharacterTemplate.Name);
             entity.Refresh();
 
             var converter = new ItemLoader(entityWorld);
             converter.loadFile("Content\\Items.json");
+            var tiles = new Entity[16,16];
+            for (int i = 0; i < 16; i++)
+            {
+                for (int j = 0; j < 16; j++)
+                {
+                    tiles[i, j] = TileTemplate.CreateEntity(entityWorld, DangerZone.Components.Tile.Type.Grass, 0,
+                                                            new Vector2(i * MassiveDangerZone.tileSize, j * MassiveDangerZone.tileSize));
+                }
+            }
+
+            ChunkTemplate.CreateEntity(entityWorld, tiles, new Vector2(256, 256));
         }
 
         public override void UnloadContent()
@@ -49,8 +61,6 @@ namespace MassiveDangerZone.Components
 
         public override void Update(GameTime gameTime)
         {
-            this._map.Update(gameTime);
-
             this.time += (uint)gameTime.ElapsedGameTime.TotalMilliseconds;
             entityWorld.Update();
 
@@ -59,7 +69,6 @@ namespace MassiveDangerZone.Components
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            _map.Draw(gameTime, spriteBatch);
             entityWorld.Draw();
         }
     }
