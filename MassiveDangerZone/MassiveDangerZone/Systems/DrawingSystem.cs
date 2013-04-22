@@ -4,6 +4,7 @@ using Artemis.Attributes;
 using Artemis.Manager;
 using Artemis.System;
 using DangerZone.Components;
+using MassiveDangerZone.Components;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace MassiveDangerZone.Systems
@@ -13,6 +14,7 @@ namespace MassiveDangerZone.Systems
     {
         private ComponentMapper<Drawable> drawableMapper;
         private ComponentMapper<WorldPosition> positionMapper;
+		private World world;
 
         public DrawingSystem() : base(Aspect.All(typeof(Drawable), typeof(WorldPosition)))
         {
@@ -26,17 +28,18 @@ namespace MassiveDangerZone.Systems
             this.spriteBatch = BlackBoard.GetEntry<SpriteBatch>("SpriteBatch");
             this.drawableMapper = new ComponentMapper<Drawable>(this.EntityWorld);
             this.positionMapper = new ComponentMapper<WorldPosition>(this.EntityWorld);
+            this.world = BlackBoard.GetEntry<World>("World");
         }
 
         public override void Process(Entity entity)
         {
             var drawable = this.drawableMapper.Get(entity);
             var position = this.positionMapper.Get(entity);
-            var delta = TimeSpan.FromTicks(this.EntityWorld.Delta);
+            var time = this.world.time;
 
             spriteBatch.Begin();
 
-            drawable.sprite.Draw(spriteBatch, position.position, delta);
+            drawable.sprite.Draw(spriteBatch, position.position, time);
             spriteBatch.End();
         }
     }

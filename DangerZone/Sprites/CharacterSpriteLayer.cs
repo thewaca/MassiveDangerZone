@@ -64,13 +64,7 @@ namespace DangerZone.Sprites
 
         public static readonly Vector2 size = new Vector2(64, 64);
 
-        uint getFrame(TimeSpan delta, uint frames)
-        {
-            const float frameLength = (float)1000/30;
-            return (uint)(delta.TotalMilliseconds / frameLength) % frames;
-        }
-
-        public override void Draw(SpriteBatch spriteBatch, Vector2 position, TimeSpan delta)
+        public override void Draw(SpriteBatch spriteBatch, Vector2 position, uint delta)
         {
             var row = (int)state*4;
             row += (int) facing;

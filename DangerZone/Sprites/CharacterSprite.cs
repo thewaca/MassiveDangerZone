@@ -30,7 +30,7 @@ namespace DangerZone.Sprites
             set { foreach (var layer in layers) layer.state = value; }
         }
 
-        public override void Draw(SpriteBatch spriteBatch, Vector2 position, TimeSpan delta)
+        public override void Draw(SpriteBatch spriteBatch, Vector2 position, uint delta)
         {
             foreach (var layer in this.layers)
             {

@@ -19,6 +19,8 @@ namespace MassiveDangerZone.Components
         private TileChunk _map;
         private EntityWorld entityWorld;
 
+        public uint time { get; private set; }
+
         public override void LoadContent(ContentManager contentManager)
         {
             _map = new TileChunk(Screen, 32, 16);
@@ -26,6 +28,7 @@ namespace MassiveDangerZone.Components
 
             EntitySystem.BlackBoard.SetEntry("SpriteBatch", Screen.ScreenManager.SpriteBatch);
             EntitySystem.BlackBoard.SetEntry("ContentManager", contentManager);
+            EntitySystem.BlackBoard.SetEntry("World", this);
 
             entityWorld = new EntityWorld();
             entityWorld.InitializeAll(true);
@@ -47,6 +50,8 @@ namespace MassiveDangerZone.Components
         public override void Update(GameTime gameTime)
         {
             this._map.Update(gameTime);
+
+            this.time += (uint)gameTime.ElapsedGameTime.TotalMilliseconds;
             entityWorld.Update();
 
             base.Update(gameTime);

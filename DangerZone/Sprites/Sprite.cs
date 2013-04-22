@@ -15,7 +15,7 @@ namespace DangerZone.Sprites
             spriteBatch.Draw(Texture, position - Origin, Color);
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch, Vector2 position, TimeSpan delta)
+        public virtual void Draw(SpriteBatch spriteBatch, Vector2 position, uint delta)
         {
             Draw(spriteBatch, position);
         }
@@ -30,5 +30,12 @@ namespace DangerZone.Sprites
         {
             return new Rectangle(column * (int)spriteSize.X, row * (int)spriteSize.Y, (int)spriteSize.X, (int)spriteSize.Y);
         }
+
+        protected uint getFrame(uint time, uint frames)
+        {
+            const float frameLength = (float)1000/30;
+            return (uint)(time / frameLength) % frames;
+        }
+
     }
 }
