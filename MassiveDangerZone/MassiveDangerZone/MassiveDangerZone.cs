@@ -15,6 +15,7 @@ namespace MassiveDangerZone
         GraphicsDeviceManager graphics;
         ScreenManager screenManager;
         public static readonly Random rand = new Random((int)DateTime.Now.ToFileTime());
+        public static readonly int tileSize = 32;
         // By preloading any assets used by UI rendering, we avoid framerate glitches
         // when they suddenly need to be loaded in the middle of a menu transition.
         static readonly string[] preloadAssets =

@@ -9,6 +9,7 @@ namespace DangerZone.Sprites
         public Texture2D Texture;
         public Vector2 Origin = Vector2.Zero;
         public Color Color = Color.White;
+        //public Rectangle source = Rectangle.Empty;
 
         public virtual void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
@@ -22,7 +23,7 @@ namespace DangerZone.Sprites
 
         public virtual void Draw(SpriteBatch spriteBatch, Vector2 position, Vector2 size)
         {
-            Rectangle dest = new Rectangle((int)position.X - (int)Origin.X, (int)position.Y - (int)Origin.Y, (int)size.X, (int)size.Y);
+            var dest = new Rectangle((int)position.X - (int)Origin.X, (int)position.Y - (int)Origin.Y, (int)size.X, (int)size.Y);
             spriteBatch.Draw(Texture, dest, Color);
         }
 
