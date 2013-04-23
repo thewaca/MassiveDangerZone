@@ -43,7 +43,7 @@ namespace MassiveDangerZone.Components
             {
                 for (int j = 0; j < 16; j++)
                 {
-                    tiles[i, j] = TileTemplate.CreateEntity(entityWorld, DangerZone.Components.Tile.Type.Grass, 0,
+                    tiles[i, j] = TileTemplate.CreateEntity(entityWorld, (i < j ? DangerZone.Components.Tile.Type.Grass : DangerZone.Components.Tile.Type.Dirt), 0,
                                                             new Vector2(i * MassiveDangerZone.tileSize, j * MassiveDangerZone.tileSize));
                 }
             }

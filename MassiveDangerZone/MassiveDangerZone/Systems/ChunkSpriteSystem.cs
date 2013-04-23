@@ -20,6 +20,23 @@ namespace MassiveDangerZone.Systems
     {
         private readonly Dictionary<Tile.Type, Texture2D> groundTextures;
 
+        private readonly Dictionary<int, Point> tileMap = new Dictionary<int, Point>
+            {
+                {1 , new Point(2,4)},
+                {2 , new Point(0,4)},
+                {4 , new Point(0,2)},
+                {8 , new Point(2,2)},
+                {3 , new Point(1,4)},
+                {12 , new Point(1,2)},
+                {6 , new Point(0,3)},
+                {9 , new Point(2,3)},
+                {11 , new Point(1,0)},
+                {7 , new Point(2,0)},
+                {13 , new Point(1,1)},
+                {14 , new Point(2,1)},
+                {15 , new Point(1,3)},
+            };
+
         public ChunkSpriteSystem()
             : base(Aspect.All(typeof(Chunk), typeof(Drawable)))
         {
@@ -68,19 +85,17 @@ namespace MassiveDangerZone.Systems
                 graphics.Clear(Color.Transparent);
 
                 spriteBatch.Begin();
-                for (int x = 0; x < chunk.size; x++)
+                for (int x = 0; x < chunk.size - 1; x++)
                 {
-                    for (int y = 0; y < chunk.size; y++)
+                    for (int y = 0; y < chunk.size - 1; y++)
                     {
                         Tile topLeft = tileMapper.Get(chunk.tiles[x, y]);
-                        /*Tile topRight = tileMapper.Get(chunk.tiles[x + 1, y]);
+                        Tile topRight = tileMapper.Get(chunk.tiles[x + 1, y]);
                         Tile bottomLeft = tileMapper.Get(chunk.tiles[x, y + 1]);
-                        Tile bottomRight = tileMapper.Get(chunk.tiles[x + 1, y + 1]);*/
+                        Tile bottomRight = tileMapper.Get(chunk.tiles[x + 1, y + 1]);
 
                         ChunkPosition pos = chunkPositionMapper.Get(chunk.tiles[x, y]);
-
-                        Rectangle source = Sprite.GetSheetRectangle(new Vector2(MassiveDangerZone.tileSize, MassiveDangerZone.tileSize), 1, 3);
-                        spriteBatch.Draw(groundTextures[Tile.Type.Grass], pos.position, source, Color.White);
+                        ComposeTile(topLeft, topRight, bottomLeft, bottomRight, pos.position, spriteBatch);
                     }
                 }
                 spriteBatch.End();
@@ -89,7 +104,42 @@ namespace MassiveDangerZone.Systems
                 sprite.Texture = chunkRenderer;
                 sprite.Origin = new Vector2(chunkPixelSize / 2, chunkPixelSize / 2);
             }
+        }
 
+        private void ComposeTile(Tile topLeft, Tile topRight, Tile bottomLeft, Tile bottomRight, Vector2 pos, SpriteBatch spriteBatch)
+        {
+            var counts = new Dictionary<Tile.Type, int>();
+            AddTileToCountDictionary(topLeft.type, 1, counts);
+            AddTileToCountDictionary(topRight.type, 2, counts);
+            AddTileToCountDictionary(bottomRight.type, 4, counts);
+            AddTileToCountDictionary(bottomLeft.type, 8, counts);
+
+            Tile.Type type = Tile.Type.Dirt;
+            if (counts.ContainsKey(type))//foreach (Tile.Type type in counts.Keys)
+            {
+                Point p = tileMap[counts[type]];
+                Rectangle source = Sprite.GetSheetRectangle(new Vector2(MassiveDangerZone.tileSize, MassiveDangerZone.tileSize), p.X, p.Y);
+                spriteBatch.Draw(groundTextures[type], pos, source, Color.White);
+            }
+            type = Tile.Type.Grass;
+            if (counts.ContainsKey(type))//foreach (Tile.Type type in counts.Keys)
+            {
+                Point p = tileMap[counts[type]];
+                Rectangle source = Sprite.GetSheetRectangle(new Vector2(MassiveDangerZone.tileSize, MassiveDangerZone.tileSize), p.X, p.Y);
+                spriteBatch.Draw(groundTextures[type], pos, source, Color.White);
+            }
+        }
+
+        private void AddTileToCountDictionary(Tile.Type tile, int pos, Dictionary<Tile.Type, int> counts)
+        {
+            if (counts.ContainsKey(tile))
+            {
+                counts[tile] += pos;
+            }
+            else
+            {
+                counts[tile] = pos;
+            }
         }
     }
 }
