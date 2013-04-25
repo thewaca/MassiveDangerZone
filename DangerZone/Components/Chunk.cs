@@ -12,9 +12,8 @@ namespace DangerZone.Components
     public class Chunk : IComponent
     {
         public Entity[,] tiles = null;
-        public int size = 0;
+        public Point size = Point.Zero;
         public Chunk right = null, bottom = null, corner = null;
-        public bool hasLeft = false, hasTop = false;
         public bool clean = false;
     }
 }

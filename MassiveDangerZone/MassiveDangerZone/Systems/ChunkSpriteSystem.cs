@@ -52,24 +52,66 @@ namespace MassiveDangerZone.Systems
         private GraphicsDevice graphics;
         private SpriteBatch spriteBatch;
 
+#region LoadContent
         public override void LoadContent()
         {
-            this.chunkMapper = new ComponentMapper<Chunk>(EntityWorld);
-            this.drawableMapper = new ComponentMapper<Drawable>(EntityWorld);
-            this.tileMapper = new ComponentMapper<Tile>(EntityWorld);
-            this.chunkPositionMapper = new ComponentMapper<ChunkPosition>(EntityWorld);
+            CreateComponentMappers();
+            LoadBlackBoardObjects();
+            LoadGroundTextures();
+        }
+
+        private void LoadBlackBoardObjects()
+        {
             contentManager = BlackBoard.GetEntry<ContentManager>("ContentManager");
             graphics = BlackBoard.GetEntry<GraphicsDevice>("GraphicsDevice");
             spriteBatch = BlackBoard.GetEntry<SpriteBatch>("SpriteBatch");
+        }
 
+        private void CreateComponentMappers()
+        {
+            chunkMapper = new ComponentMapper<Chunk>(EntityWorld);
+            drawableMapper = new ComponentMapper<Drawable>(EntityWorld);
+            tileMapper = new ComponentMapper<Tile>(EntityWorld);
+            chunkPositionMapper = new ComponentMapper<ChunkPosition>(EntityWorld);
+        }
+
+        private void LoadGroundTextures()
+        {
             groundTextures.Add(Tile.Type.Grass, contentManager.Load<Texture2D>(@"Tiles\grass"));
             groundTextures.Add(Tile.Type.Dirt, contentManager.Load<Texture2D>(@"Tiles\dirt"));
         }
+#endregion
+
+#region RenderTargetHelpers
+        private void SetRenderTargetAndBegin(RenderTarget2D renderTarget)
+        {
+            graphics.SetRenderTarget(renderTarget);
+            graphics.Clear(Color.Transparent);
+            spriteBatch.Begin();
+        }
+
+        private void ClearRenderTargetAndEnd()
+        {
+            spriteBatch.End();
+            graphics.SetRenderTarget(null);
+            graphics.Clear(Color.Black);
+        }
+
+        private RenderTarget2D CreateRenderTargetForChunk(Chunk chunk)
+        {
+            return new RenderTarget2D(graphics,
+                    (chunk.size.X * MassiveDangerZone.tileSize),
+                    (chunk.size.Y * MassiveDangerZone.tileSize),
+                    false,
+                    SurfaceFormat.Color,
+                    DepthFormat.None);
+        }
+#endregion
 
         public override void Process(Entity e)
         {
-            var chunk = this.chunkMapper.Get(e);
-            var drawable = this.drawableMapper.Get(e);
+            var chunk = chunkMapper.Get(e);
+            var drawable = drawableMapper.Get(e);
 
             if (drawable.sprite == null)
             {
@@ -78,56 +120,78 @@ namespace MassiveDangerZone.Systems
 
             if (!chunk.clean)
             {
-                var sprite = drawable.sprite;
-                int chunkPixelSize = chunk.size * MassiveDangerZone.tileSize;
-                var chunkRenderer = new RenderTarget2D(graphics, chunkPixelSize, chunkPixelSize, false, SurfaceFormat.Color, DepthFormat.None);
-                graphics.SetRenderTarget(chunkRenderer);
-                graphics.Clear(Color.Transparent);
+                var chunkRenderer = CreateRenderTargetForChunk(chunk);
+                SetRenderTargetAndBegin(chunkRenderer);
 
-                spriteBatch.Begin();
-                for (int x = 0; x < chunk.size - 1; x++)
-                {
-                    for (int y = 0; y < chunk.size - 1; y++)
-                    {
-                        Tile topLeft = tileMapper.Get(chunk.tiles[x, y]);
-                        Tile topRight = tileMapper.Get(chunk.tiles[x + 1, y]);
-                        Tile bottomLeft = tileMapper.Get(chunk.tiles[x, y + 1]);
-                        Tile bottomRight = tileMapper.Get(chunk.tiles[x + 1, y + 1]);
+                ComposeCenterTiles(chunk);
+                ComposeBottomTiles(chunk);
+                ComposeRightTiles(chunk);
+                ComposeBottomRightCornerTile(chunk);
 
-                        ChunkPosition pos = chunkPositionMapper.Get(chunk.tiles[x, y]);
-                        ComposeTile(topLeft, topRight, bottomLeft, bottomRight, pos.position, spriteBatch);
-                    }
-                }
-                spriteBatch.End();
-                graphics.SetRenderTarget(null);
-                graphics.Clear(Color.Black);
-                sprite.Texture = chunkRenderer;
-                sprite.Origin = new Vector2(chunkPixelSize / 2, chunkPixelSize / 2);
+                ClearRenderTargetAndEnd();
+                drawable.sprite.SetSprite(chunkRenderer);
             }
         }
 
-        private void ComposeTile(Tile topLeft, Tile topRight, Tile bottomLeft, Tile bottomRight, Vector2 pos, SpriteBatch spriteBatch)
+#region ComposeTilesHelpers
+        private void ComposeCenterTiles(Chunk chunk)
         {
-            var counts = new Dictionary<Tile.Type, int>();
-            AddTileToCountDictionary(topLeft.type, 1, counts);
-            AddTileToCountDictionary(topRight.type, 2, counts);
-            AddTileToCountDictionary(bottomRight.type, 4, counts);
-            AddTileToCountDictionary(bottomLeft.type, 8, counts);
+            for (int x = 0; x < chunk.size.X - 1; x++)
+            {
+                for (int y = 0; y < chunk.size.Y - 1; y++)
+                {
+                    Tile topLeft = tileMapper.Get(chunk.tiles[x, y]);
+                    Tile topRight = tileMapper.Get(chunk.tiles[x + 1, y]);
+                    Tile bottomLeft = tileMapper.Get(chunk.tiles[x, y + 1]);
+                    Tile bottomRight = tileMapper.Get(chunk.tiles[x + 1, y + 1]);
 
-            Tile.Type type = Tile.Type.Dirt;
-            if (counts.ContainsKey(type))//foreach (Tile.Type type in counts.Keys)
-            {
-                Point p = tileMap[counts[type]];
-                Rectangle source = Sprite.GetSheetRectangle(new Vector2(MassiveDangerZone.tileSize, MassiveDangerZone.tileSize), p.X, p.Y);
-                spriteBatch.Draw(groundTextures[type], pos, source, Color.White);
+                    ChunkPosition pos = chunkPositionMapper.Get(chunk.tiles[x, y]);
+                    ComposeTile(topLeft, topRight, bottomLeft, bottomRight, pos.position);
+                }
             }
-            type = Tile.Type.Grass;
-            if (counts.ContainsKey(type))//foreach (Tile.Type type in counts.Keys)
+        }
+
+        private void ComposeBottomTiles(Chunk chunk)
+        {
+            int y = chunk.size.Y - 1;
+            for (int x = 0; x < chunk.size.X - 1; x++)
             {
-                Point p = tileMap[counts[type]];
-                Rectangle source = Sprite.GetSheetRectangle(new Vector2(MassiveDangerZone.tileSize, MassiveDangerZone.tileSize), p.X, p.Y);
-                spriteBatch.Draw(groundTextures[type], pos, source, Color.White);
+                Tile topLeft = tileMapper.Get(chunk.tiles[x, y]);
+                Tile topRight = tileMapper.Get(chunk.tiles[x + 1, y]);
+                Tile bottomLeft = (chunk.bottom != null ? tileMapper.Get(chunk.bottom.tiles[x, 0]) : Tile.emptyTile);
+                Tile bottomRight = (chunk.bottom != null ? tileMapper.Get(chunk.bottom.tiles[x + 1, 0]) : Tile.emptyTile);
+
+                ChunkPosition pos = chunkPositionMapper.Get(chunk.tiles[x, y]);
+                ComposeTile(topLeft, topRight, bottomLeft, bottomRight, pos.position);
             }
+        }
+
+        private void ComposeRightTiles(Chunk chunk)
+        {
+            int x = chunk.size.X - 1;
+            for (int y = 0; y < chunk.size.Y - 1; y++)
+            {
+                Tile topLeft = tileMapper.Get(chunk.tiles[x, y]);
+                Tile topRight = (chunk.right != null ? tileMapper.Get(chunk.right.tiles[0, y]) : Tile.emptyTile);
+                Tile bottomLeft = tileMapper.Get(chunk.tiles[x, y + 1]);
+                Tile bottomRight = (chunk.right != null ? tileMapper.Get(chunk.right.tiles[0, y + 1]) : Tile.emptyTile);
+
+                ChunkPosition pos = chunkPositionMapper.Get(chunk.tiles[x, y]);
+                ComposeTile(topLeft, topRight, bottomLeft, bottomRight, pos.position);
+            }
+        }
+
+        private void ComposeBottomRightCornerTile(Chunk chunk)
+        {
+            int x = chunk.size.X - 1;
+            int y = chunk.size.Y - 1;
+            Tile topLeft = tileMapper.Get(chunk.tiles[x, y]);
+            Tile topRight = (chunk.right != null ? tileMapper.Get(chunk.right.tiles[0, y]) : Tile.emptyTile);
+            Tile bottomLeft = (chunk.bottom != null ? tileMapper.Get(chunk.bottom.tiles[x, 0]) : Tile.emptyTile);
+            Tile bottomRight = (chunk.corner != null ? tileMapper.Get(chunk.corner.tiles[0, 0]) : Tile.emptyTile);
+
+            ChunkPosition pos = chunkPositionMapper.Get(chunk.tiles[x, y]);
+            ComposeTile(topLeft, topRight, bottomLeft, bottomRight, pos.position);
         }
 
         private void AddTileToCountDictionary(Tile.Type tile, int pos, Dictionary<Tile.Type, int> counts)
@@ -140,6 +204,35 @@ namespace MassiveDangerZone.Systems
             {
                 counts[tile] = pos;
             }
+        }
+
+        private Dictionary<Tile.Type, int> CreateCountsDictionary(Tile topLeft, Tile topRight, Tile bottomLeft, Tile bottomRight)
+        {
+            var counts = new Dictionary<Tile.Type, int>();
+            AddTileToCountDictionary(topLeft.type, 1, counts);
+            AddTileToCountDictionary(topRight.type, 2, counts);
+            AddTileToCountDictionary(bottomRight.type, 4, counts);
+            AddTileToCountDictionary(bottomLeft.type, 8, counts);
+            return counts;
+        }
+
+        private void DrawType(Dictionary<Tile.Type, int> counts, Tile.Type type, Vector2 pos)
+        {
+            if (counts.ContainsKey(type))
+            {
+                Point p = tileMap[counts[type]];
+                Rectangle source = Sprite.GetSheetRectangle(new Vector2(MassiveDangerZone.tileSize, MassiveDangerZone.tileSize), p.X, p.Y);
+                spriteBatch.Draw(groundTextures[type], pos, source, Color.White);
+            }
+        }
+#endregion
+
+        private void ComposeTile(Tile topLeft, Tile topRight, Tile bottomLeft, Tile bottomRight, Vector2 pos)
+        {
+            var counts = CreateCountsDictionary(topLeft, topRight, bottomLeft, bottomRight);
+
+            DrawType(counts, Tile.Type.Dirt, pos);
+            DrawType(counts, Tile.Type.Grass, pos);
         }
     }
 }
