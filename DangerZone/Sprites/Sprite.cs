@@ -11,6 +11,12 @@ namespace DangerZone.Sprites
         public Color Color = Color.White;
         //public Rectangle source = Rectangle.Empty;
 
+        public virtual void SetSprite(Texture2D texture)
+        {
+            Texture = texture;
+            Origin = new Vector2(Texture.Width / 2.0f, Texture.Height / 2.0f);
+        }
+
         public virtual void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
             spriteBatch.Draw(Texture, position - Origin, Color);

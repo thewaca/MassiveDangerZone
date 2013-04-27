@@ -10,9 +10,11 @@ namespace DangerZone.Components
 {
     public class Tile : IComponent
     {
+        public static Tile emptyTile = new Tile{type = Type.None, zLevel = 0};
+
         public enum Type
         {
-            Grass, Dirt, DarkDirt, Water
+            None, Grass, Dirt, DarkDirt, Water
         }
 
         public Type type;

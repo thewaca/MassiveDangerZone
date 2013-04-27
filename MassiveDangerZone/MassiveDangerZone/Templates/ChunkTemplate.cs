@@ -17,7 +17,7 @@ namespace MassiveDangerZone.Templates
             {
                 tiles = (Entity[,])args[0],
                 clean = false,
-                size = ((Entity[,])args[0]).GetLength(0),
+                size = new Point(((Entity[,])args[0]).GetLength(0), ((Entity[,])args[0]).GetLength(1)),
             });
             entity.AddComponent(new WorldPosition
             {
