@@ -1,10 +1,9 @@
 ﻿using Artemis.Interface;
-using MassiveDangerZone.Items;
 
-namespace MassiveDangerZone.Components
+namespace DangerZone.Components
 {
     [SerializableComponent("item")]
-    class Item:IComponent
+    public class Item:IComponent
     {
         public string name;
         public uint value;

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MassiveDangerZone.Items
+namespace DangerZone.Components
 {
     [AttributeUsage(AttributeTargets.Class)]
     class SerializableComponent:Attribute

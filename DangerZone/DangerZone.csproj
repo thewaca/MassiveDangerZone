@@ -76,16 +76,21 @@
     <Compile Include="Components\Chunk.cs" />
     <Compile Include="Components\ChunkPosition.cs" />
     <Compile Include="Components\Drawable.cs" />
+    <Compile Include="Components\Item.cs" />
+    <Compile Include="Components\ItemLoader.cs" />
     <Compile Include="Components\Selectable.cs" />
+    <Compile Include="Components\SerializableComponent.cs" />
+    <Compile Include="Components\Weapon.cs" />
     <Compile Include="Components\WorldPosition.cs" />
     <Compile Include="Components\Tile.cs" />
     <Compile Include="ScreenManagement\Button.cs" />
     <Compile Include="Components\Character.cs" />
     <Compile Include="ScreenManagement\TileButton.cs" />
     <Compile Include="Sprites\CharacterSprite.cs" />
-    <Compile Include="Sprites\CharacterSpriteLayer.cs" />
+    <Compile Include="Sprites\BodySpriteLayer.cs" />
     <Compile Include="Components\DrawableGameComponent.cs" />
     <Compile Include="Components\GameComponent.cs" />
+    <Compile Include="Sprites\CharacterSpriteLayer.cs" />
     <Compile Include="Sprites\SpriteOld.cs" />
     <Compile Include="Sprites\Sprite.cs" />
     <Compile Include="Sprites\TileSprite.cs" />
@@ -97,6 +102,7 @@
     <Compile Include="ScreenManagement\MenuScreen.cs" />
     <Compile Include="ScreenManagement\MessageBoxScreen.cs" />
     <Compile Include="ScreenManagement\ScreenManager.cs" />
+    <Compile Include="Sprites\WeaponSpriteLayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DangerZone.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,10 +11,10 @@ namespace DangerZone.Sprites
 {
     public class CharacterSprite:CharacterSpriteLayer
     {
-        public CharacterSprite(Gender gender, ContentManager contentManager) : base(gender)
+        public CharacterSprite(Character character, ContentManager contentManager)
         {
             this.contentManager = contentManager;
-            layers.Add(this.createLayer());
+            this.configure(character);
         }
 
         protected readonly ContentManager contentManager;
@@ -38,9 +39,14 @@ namespace DangerZone.Sprites
             }
         }
 
-        public CharacterSpriteLayer createLayer()
+        // sets up this sprite so it can render the given character
+        public void configure(Character character)
         {
-            return new CharacterSpriteLayer(gender, contentManager);
+            if (this.layers.Count == 0)
+            {
+                this.layers.Add(new BodySpriteLayer(this.contentManager, character));
+                this.layers.Add(new WeaponSpriteLayer(this.contentManager, character, character.equipment.weapon.GetComponent<Weapon>().type));
+            }
         }
     }
 }

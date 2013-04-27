@@ -2,16 +2,13 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Runtime.InteropServices;
 using Artemis;
 using Artemis.Interface;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
 
-namespace MassiveDangerZone.Items
+namespace DangerZone.Components
 {
-    class ItemLoader
+    public class ItemLoader
     {
         private static readonly Dictionary<string, Type> classNames = new Dictionary<string, Type>();
 
@@ -36,6 +33,8 @@ namespace MassiveDangerZone.Items
             this.entityWorld = entityWorld;
         }
 
+        public readonly Dictionary<string, Entity> items = new Dictionary<string, Entity>();
+
         public void loadFile(string fileName)
         {
             var serializer = new JsonSerializer();
@@ -47,13 +46,13 @@ namespace MassiveDangerZone.Items
                     if (reader.TokenType == JsonToken.PropertyName)
                     {
                         var itemName = (string)reader.Value;
-                        var entity = entityWorld.CreateEntity();
-
-                        Debug.WriteLine("creating item:" + itemName);
-
                         reader.Read();
                         if (reader.TokenType == JsonToken.StartObject)
                         {
+                            var item = entityWorld.CreateEntity();
+
+                            Debug.WriteLine("creating item:" + itemName);
+
                             while (reader.Read())
                             {
                                 if (reader.TokenType == JsonToken.PropertyName)
@@ -66,7 +65,14 @@ namespace MassiveDangerZone.Items
                                     {
                                         var type = ItemLoader.classNames[componentName];
                                         var component = (IComponent) serializer.Deserialize(reader, type);
-                                        entity.AddComponent(component);
+
+                                        if (type == typeof (Item))
+                                        {
+                                            ((Item) component).name = itemName;
+                                        }
+
+                                        item.AddComponent(component);
+
                                     }
                                 }
                                 else if (reader.TokenType == JsonToken.EndObject)
@@ -74,10 +80,13 @@ namespace MassiveDangerZone.Items
                                     break;
                                 }
                             }
-                        }
 
-                        entity.Refresh();
-                    } 
+                            if(!item.HasComponent<Item>()) throw new Exception("Invalid item definition");
+                            this.items[itemName] = item;
+
+                            item.Refresh();
+                        }
+                    }
                 }
             }
         }

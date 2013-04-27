@@ -1,10 +1,6 @@
-﻿using System;
+﻿using Artemis;
 using Artemis.Interface;
-using DangerZone.ScreenManagement;
 using DangerZone.Sprites;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace DangerZone.Components
 {
@@ -12,7 +8,13 @@ namespace DangerZone.Components
     {
         public CharacterSpriteLayer.Gender gender = CharacterSpriteLayer.Gender.Male;
         public CharacterSpriteLayer.Facing facing = CharacterSpriteLayer.Facing.Down;
-        public CharacterSpriteLayer.State state = CharacterSpriteLayer.State.Walking;
-        // TODO: add equipment
+        public CharacterSpriteLayer.State state = CharacterSpriteLayer.State.Swinging;
+
+        public EquipmentSet equipment;
+
+        public class EquipmentSet
+        {
+            public Entity weapon;
+        }
     }
 }

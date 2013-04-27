@@ -1,35 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DangerZone.Components;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace DangerZone.Sprites
 {
-    public class CharacterSpriteLayer : Sprite
+    public abstract class CharacterSpriteLayer : Sprite
     {
-        public CharacterSpriteLayer(Gender gender, ContentManager contentManager):this(gender)
+        protected CharacterSpriteLayer(Character character)
         {
-            string path;
-            switch (gender)
-            {
-                case Gender.Male:
-                    path = "sprites\\body\\male\\tanned";
-                    break;
-                case Gender.Female:
-                    path = "sprites\\body\\female\\tanned";
-                    break;
-                default:
-                    throw new Exception("fuck you");
-            }
-
-            Texture = contentManager.Load<Texture2D>(path);
-        }
-
-        protected CharacterSpriteLayer(Gender gender)
-        {
-            this.gender = gender;
+            this.configure(character);
         }
 
         public enum Gender
@@ -37,7 +17,7 @@ namespace DangerZone.Sprites
             Male, Female
         }
 
-        public readonly Gender gender;
+        public Gender gender;
 
         public enum State
         {
@@ -45,12 +25,13 @@ namespace DangerZone.Sprites
         }
 
         public State state = State.Walking;
-        public Facing facing = Facing.Down;
 
         public enum Facing
         {
             Up, Left, Down, Right
         }
+
+        public Facing facing = Facing.Down;
 
         public static readonly Dictionary<State, uint> frames = new Dictionary<State, uint>
             {
@@ -64,6 +45,10 @@ namespace DangerZone.Sprites
 
         public static readonly Vector2 size = new Vector2(64, 64);
 
+        protected CharacterSpriteLayer()
+        {
+        }
+
         public override void Draw(SpriteBatch spriteBatch, Vector2 position, uint delta)
         {
             var row = (int)state*4;
@@ -71,6 +56,13 @@ namespace DangerZone.Sprites
             var column = (int)getFrame(delta, frames[state]);
 
             spriteBatch.Draw(Texture, position - Origin, GetSheetRectangle(size, column, row), Color);
+        }
+
+        public virtual void configure(Character character)
+        {
+            this.state = character.state;
+            this.gender = character.gender;
+            this.facing = character.facing;
         }
     }
 }

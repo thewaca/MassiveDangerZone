@@ -1,12 +1,12 @@
 ﻿using Artemis;
 using Artemis.System;
 using DangerZone.ScreenManagement;
-using MassiveDangerZone.Items;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using DrawableGameComponent = DangerZone.Components.DrawableGameComponent;
 using MassiveDangerZone.Templates;
+using DangerZone.Components;
 
 namespace MassiveDangerZone.Components
 {
@@ -33,11 +33,18 @@ namespace MassiveDangerZone.Components
 
             entityWorld = new EntityWorld();
             entityWorld.InitializeAll(true);
-            Entity entity = entityWorld.CreateEntityFromTemplate(CharacterTemplate.Name);
-            entity.Refresh();
 
             var converter = new ItemLoader(entityWorld);
             converter.loadFile("Content\\Items.json");
+
+            Entity character = entityWorld.CreateEntityFromTemplate(CharacterTemplate.Name);
+            var characterComponent = character.GetComponent<Character>();
+            characterComponent.equipment = new Character.EquipmentSet
+                {
+                    weapon = converter.items["sword"]
+                };
+            character.Refresh();
+
             var tiles = new Entity[16,16];
             for (int i = 0; i < 16; i++)
             {

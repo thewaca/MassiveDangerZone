@@ -32,17 +32,16 @@ namespace MassiveDangerZone.Systems
             var character = this.characterMapper.Get(e);
             var drawable= this.drawableMapper.Get(e);
             var sprite = (CharacterSprite) drawable.sprite;
-            var gender = character.gender;
             var contentManager = BlackBoard.GetEntry<ContentManager>("ContentManager");
 
             if (sprite == null)
             {
-                drawable.sprite = sprite = new CharacterSprite(gender, contentManager);
+                drawable.sprite = new CharacterSprite(character, contentManager);
             }
-
-
-            sprite.facing = character.facing;
-            sprite.state = character.state;
+            else
+            {
+                sprite.configure(character);
+            }
         }
     }
 }
