@@ -73,9 +73,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\Armor.cs" />
     <Compile Include="Components\Chunk.cs" />
     <Compile Include="Components\ChunkPosition.cs" />
     <Compile Include="Components\Drawable.cs" />
+    <Compile Include="Components\Equipment.cs" />
     <Compile Include="Components\Item.cs" />
     <Compile Include="Components\ItemLoader.cs" />
     <Compile Include="Components\Selectable.cs" />
@@ -102,7 +104,7 @@
     <Compile Include="ScreenManagement\MenuScreen.cs" />
     <Compile Include="ScreenManagement\MessageBoxScreen.cs" />
     <Compile Include="ScreenManagement\ScreenManager.cs" />
-    <Compile Include="Sprites\WeaponSpriteLayer.cs" />
+    <Compile Include="Sprites\EquipmentSpriteLayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

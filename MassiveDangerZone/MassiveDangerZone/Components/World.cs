@@ -41,7 +41,8 @@ namespace MassiveDangerZone.Components
             var characterComponent = character.GetComponent<Character>();
             characterComponent.equipment = new Character.EquipmentSet
                 {
-                    weapon = converter.items["sword"]
+                    weapon = converter.items["sword"],
+                    armor = converter.items["leatherChest"]
                 };
             character.Refresh();
 

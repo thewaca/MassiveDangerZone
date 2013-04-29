@@ -45,7 +45,8 @@ namespace DangerZone.Sprites
             if (this.layers.Count == 0)
             {
                 this.layers.Add(new BodySpriteLayer(this.contentManager, character));
-                this.layers.Add(new WeaponSpriteLayer(this.contentManager, character, character.equipment.weapon.GetComponent<Weapon>().type));
+                this.layers.Add(new EquipmentSpriteLayer<Armor>(this.contentManager, character, character.equipment.armor));
+                this.layers.Add(new EquipmentSpriteLayer<Weapon>(this.contentManager, character, character.equipment.weapon));
             }
         }
     }

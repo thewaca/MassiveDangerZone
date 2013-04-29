@@ -4,7 +4,7 @@
   "sword": {
     "weapon": {
       "damage": 10,
-      "type": "Sword"
+      "slot": "Sword"
     },
     "item": {
       "value": 50
@@ -14,10 +14,19 @@
   "spear": {
     "weapon": {
       "damage": 20,
-      "type": "Spear"
+      "slot": "Spear"
     },
     "item": {
       "value": 50,
     }
+  },
+  "leatherChest": {
+	"item": {
+		value: 10
+	},
+	"armor": {
+		"defense": 10,
+		"slot": "Chest"
+	}
   }
 }

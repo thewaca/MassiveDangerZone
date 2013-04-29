@@ -5,22 +5,15 @@ using DangerZone.Sprites;
 namespace DangerZone.Components
 {
     [SerializableComponent("weapon")]
-    public class Weapon:IComponent
+    public class Weapon:Equipment 
     {
         public int damage;
 
-        public enum Type
-        {
-            Sword, Spear, Bow
-        }
-
-        public static readonly Dictionary<Type, CharacterSpriteLayer.State> animationMap = new Dictionary<Type, CharacterSpriteLayer.State>
+        public static readonly Dictionary<Slot, CharacterSpriteLayer.State> animationMap = new Dictionary<Slot, CharacterSpriteLayer.State>
             {
-                {Type.Bow, CharacterSpriteLayer.State.Shooting},
-                {Type.Spear, CharacterSpriteLayer.State.Thrusting},
-                {Type.Sword, CharacterSpriteLayer.State.Swinging}
+                {Slot.Bow, CharacterSpriteLayer.State.Shooting},
+                {Slot.Spear, CharacterSpriteLayer.State.Thrusting},
+                {Slot.Sword, CharacterSpriteLayer.State.Swinging}
             };
-
-        public Type type;
     }
 }

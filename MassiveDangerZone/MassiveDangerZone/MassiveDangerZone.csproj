@@ -119,7 +119,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\Armor.cs" />
     <Compile Include="Components\World.cs" />
     <Compile Include="Screens\BackgroundScreen.cs" />
     <Compile Include="Screens\CreativeplayScreen.cs" />

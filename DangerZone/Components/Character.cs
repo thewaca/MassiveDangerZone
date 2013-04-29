@@ -15,6 +15,7 @@ namespace DangerZone.Components
         public class EquipmentSet
         {
             public Entity weapon;
+            public Entity armor;
         }
     }
 }
