@@ -40,13 +40,13 @@ namespace DangerZone.Sprites
         }
 
         // sets up this sprite so it can render the given character
-        public void configure(Character character)
+        public override void configure(Character character)
         {
             if (this.layers.Count == 0)
             {
                 this.layers.Add(new BodySpriteLayer(this.contentManager, character));
-                this.layers.Add(new EquipmentSpriteLayer<Armor>(this.contentManager, character, character.equipment.armor));
-                this.layers.Add(new EquipmentSpriteLayer<Weapon>(this.contentManager, character, character.equipment.weapon));
+                this.layers.Add(new ArmorSpriteLayer(this.contentManager, character, Equipment.Slot.Chest));
+                this.layers.Add(new WeaponSpriteLayer(this.contentManager, character));
             }
         }
     }

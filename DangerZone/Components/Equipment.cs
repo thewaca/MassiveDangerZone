@@ -6,7 +6,7 @@ namespace DangerZone.Components
     {
         public enum Slot
         {
-            Sword, Spear, Bow, Helmet, Chest, Greaves
+           Weapon, Helmet, Chest, Greaves
         }
 
         public Slot slot;

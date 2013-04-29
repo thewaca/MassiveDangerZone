@@ -8,46 +8,20 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace DangerZone.Sprites
 {
-    class EquipmentSpriteLayer<T>:CharacterSpriteLayer where T:Equipment
+    abstract class EquipmentSpriteLayer<T>:CharacterSpriteLayer where T:Equipment
     {
-        public EquipmentSpriteLayer(ContentManager contentManager, Character character, Entity weapon):base(character)
+        public EquipmentSpriteLayer(ContentManager contentManager, Character character, Equipment.Slot slot):base(character)
         {
-            Dictionary<Equipment.Slot, String> genderFileNames;
-            switch (character.gender)
-            {
-                case Gender.Male:
-                    genderFileNames = this.maleSlot;
-                    break;
-                case Gender.Female:
-                    genderFileNames = this.femaleSlot;
-                    break;
-                default: throw new Exception("fuck you");
-            }
+            var equipment = this.equipmentForSlot(character, slot).GetComponent<T>();
 
-            var slot = weapon.GetComponent<T>().slot;
-            var fileName = genderFileNames.ContainsKey(slot) ? genderFileNames[slot] : this.genericSlot[slot];
-
-            Debug.WriteLine("loading " + fileName + " for " + slot.ToString());
-
-            Texture = contentManager.Load<Texture2D>(fileName);
+            Texture = contentManager.Load<Texture2D>(this.fileNameForEquipment(character, equipment));
         }
 
-        private Dictionary<Equipment.Slot, String> genericSlot = new Dictionary<Equipment.Slot, string>
-            {
-                {Equipment.Slot.Spear, "sprites\\weapons\\spear"},
-                {Equipment.Slot.Bow, "sprites\\weapons\\bow"}
-            };
+        protected virtual Entity equipmentForSlot(Character character, Equipment.Slot slot)
+        {
+            return character.equipment[slot];
+        }
 
-        private Dictionary<Equipment.Slot, String> femaleSlot = new Dictionary<Equipment.Slot, string>
-            {
-                {Equipment.Slot.Sword, "sprites\\weapons\\dagger_male"},
-                {Equipment.Slot.Chest, "sprites\\torso\\leather\\chest_female"}
-            };
-
-        private Dictionary<Equipment.Slot, String> maleSlot = new Dictionary<Equipment.Slot, string>
-            {
-                {Equipment.Slot.Sword, "sprites\\weapons\\dagger_male"},
-                {Equipment.Slot.Chest, "sprites\\torso\\leather\\chest_male"}
-            };
+        protected abstract string fileNameForEquipment(Character character, T equipment);
     }
 }

@@ -9,11 +9,20 @@ namespace DangerZone.Components
     {
         public int damage;
 
-        public static readonly Dictionary<Slot, CharacterSpriteLayer.State> animationMap = new Dictionary<Slot, CharacterSpriteLayer.State>
+        public enum Type
+        {
+             Sword, Spear, Bow,
+        }
+
+        public Type type = Type.Sword;
+
+        new public readonly Slot slot = Slot.Weapon;
+
+        public static readonly Dictionary<Type, CharacterSpriteLayer.State> animationMap = new Dictionary<Type, CharacterSpriteLayer.State>
             {
-                {Slot.Bow, CharacterSpriteLayer.State.Shooting},
-                {Slot.Spear, CharacterSpriteLayer.State.Thrusting},
-                {Slot.Sword, CharacterSpriteLayer.State.Swinging}
+                {Type.Bow, CharacterSpriteLayer.State.Shooting},
+                {Type.Spear, CharacterSpriteLayer.State.Thrusting},
+                {Type.Sword, CharacterSpriteLayer.State.Swinging}
             };
     }
 }

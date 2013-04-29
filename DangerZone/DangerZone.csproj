@@ -88,6 +88,7 @@
     <Compile Include="ScreenManagement\Button.cs" />
     <Compile Include="Components\Character.cs" />
     <Compile Include="ScreenManagement\TileButton.cs" />
+    <Compile Include="Sprites\ArmorSpriteLayer.cs" />
     <Compile Include="Sprites\CharacterSprite.cs" />
     <Compile Include="Sprites\BodySpriteLayer.cs" />
     <Compile Include="Components\DrawableGameComponent.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="ScreenManagement\MessageBoxScreen.cs" />
     <Compile Include="ScreenManagement\ScreenManager.cs" />
     <Compile Include="Sprites\EquipmentSpriteLayer.cs" />
+    <Compile Include="Sprites\WeaponSpriteLayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

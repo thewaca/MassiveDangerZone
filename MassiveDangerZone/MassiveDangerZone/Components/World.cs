@@ -39,11 +39,8 @@ namespace MassiveDangerZone.Components
 
             Entity character = entityWorld.CreateEntityFromTemplate(CharacterTemplate.Name);
             var characterComponent = character.GetComponent<Character>();
-            characterComponent.equipment = new Character.EquipmentSet
-                {
-                    weapon = converter.items["sword"],
-                    armor = converter.items["leatherChest"]
-                };
+            characterComponent.equipment[Equipment.Slot.Weapon] = converter.items["sword"];
+            characterComponent.equipment[Equipment.Slot.Chest] = converter.items["leatherChest"];
             character.Refresh();
 
             var tiles = new Entity[16,16];
