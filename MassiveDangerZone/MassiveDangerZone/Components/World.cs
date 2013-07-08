@@ -19,6 +19,8 @@ namespace MassiveDangerZone.Components
         private TileChunk _map;
         private EntityWorld entityWorld;
 
+        private Entity character;
+
         public uint time { get; private set; }
 
         public override void LoadContent(ContentManager contentManager)
@@ -37,7 +39,7 @@ namespace MassiveDangerZone.Components
             var converter = new ItemLoader(entityWorld);
             converter.loadFile("Content\\Items.json");
 
-            Entity character = entityWorld.CreateEntityFromTemplate(CharacterTemplate.Name);
+            character = entityWorld.CreateEntityFromTemplate(CharacterTemplate.Name);
             var characterComponent = character.GetComponent<Character>();
             characterComponent.equipment[Equipment.Slot.Weapon] = converter.items["sword"];
             characterComponent.equipment[Equipment.Slot.Chest] = converter.items["leatherChest"];
@@ -66,7 +68,7 @@ namespace MassiveDangerZone.Components
 
         public override void Update(GameTime gameTime)
         {
-            this.time += (uint)gameTime.ElapsedGameTime.TotalMilliseconds;
+            this.time += (uint) gameTime.ElapsedGameTime.TotalMilliseconds;
             entityWorld.Update();
 
             base.Update(gameTime);

@@ -80,6 +80,7 @@
     <Compile Include="Components\Equipment.cs" />
     <Compile Include="Components\Item.cs" />
     <Compile Include="Components\ItemLoader.cs" />
+    <Compile Include="Components\PlayerCharacter.cs" />
     <Compile Include="Components\Selectable.cs" />
     <Compile Include="Components\SerializableComponent.cs" />
     <Compile Include="Components\Weapon.cs" />

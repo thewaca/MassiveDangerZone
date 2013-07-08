@@ -19,6 +19,7 @@ namespace MassiveDangerZone.Templates
                     position = new Vector2(100,100)
                 });
             entity.AddComponent(new Drawable());
+            entity.AddComponent(new PlayerCharacter());
 
             return entity;
         }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using DangerZone.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -48,6 +45,9 @@ namespace DangerZone.Sprites
                 this.layers.Add(new ArmorSpriteLayer(this.contentManager, character, Equipment.Slot.Chest));
                 this.layers.Add(new WeaponSpriteLayer(this.contentManager, character));
             }
+
+            this.facing = character.facing;
+            this.state = character.state;
         }
     }
 }
