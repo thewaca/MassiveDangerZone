@@ -38,21 +38,29 @@ namespace MassiveDangerZone.Systems
             {
                 worldPosition.position.Y -= 1;
                 character.facing = CharacterSpriteLayer.Facing.Up;
+                character.state = CharacterSpriteLayer.State.Walking;
             }
-            if (keyboard.IsKeyDown(Keys.S))
+            else if (keyboard.IsKeyDown(Keys.S))
             {
                 worldPosition.position.Y += 1;
                 character.facing = CharacterSpriteLayer.Facing.Down;
+                character.state = CharacterSpriteLayer.State.Walking;
             }
-            if (keyboard.IsKeyDown(Keys.A))
+            else if (keyboard.IsKeyDown(Keys.A))
             {
                 worldPosition.position.X -= 1;
                 character.facing = CharacterSpriteLayer.Facing.Left;
+                character.state = CharacterSpriteLayer.State.Walking;
             }
-            if (keyboard.IsKeyDown(Keys.D))
+            else if (keyboard.IsKeyDown(Keys.D))
             {
                 worldPosition.position.X += 1;
                 character.facing = CharacterSpriteLayer.Facing.Right;
+                character.state = CharacterSpriteLayer.State.Walking;
+            }
+            else
+            {
+                character.state = CharacterSpriteLayer.State.Standing;
             }
         }
     }

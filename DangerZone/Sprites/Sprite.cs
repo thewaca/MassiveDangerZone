@@ -33,9 +33,9 @@ namespace DangerZone.Sprites
             spriteBatch.Draw(Texture, dest, Color);
         }
 
-        public static Rectangle GetSheetRectangle(Vector2 spriteSize, int column, int row)
+        public static Rectangle GetSheetRectangle(Vector2 spriteSize, uint column, uint row)
         {
-            return new Rectangle(column * (int)spriteSize.X, row * (int)spriteSize.Y, (int)spriteSize.X, (int)spriteSize.Y);
+            return new Rectangle((int)column * (int)spriteSize.X, (int)row * (int)spriteSize.Y, (int)spriteSize.X, (int)spriteSize.Y);
         }
 
         protected uint getFrame(uint time, uint frames)

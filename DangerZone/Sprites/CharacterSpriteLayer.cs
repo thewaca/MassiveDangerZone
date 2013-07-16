@@ -21,7 +21,7 @@ namespace DangerZone.Sprites
 
         public enum State
         {
-            Casting, Thrusting, Walking, Swinging, Shooting, Dying
+            Casting, Thrusting, Walking, Swinging, Shooting, Dying, Standing
         }
 
         public State state = State.Walking;
@@ -33,6 +33,17 @@ namespace DangerZone.Sprites
 
         public Facing facing = Facing.Down;
 
+        public static readonly  Dictionary<State, uint> rows = new Dictionary<State, uint>
+            {
+                {State.Casting, 0},
+                {State.Thrusting, 1},
+                {State.Walking, 2},
+                {State.Swinging, 3},
+                {State.Shooting, 4},
+                {State.Dying, 5},
+                {State.Standing, 2}
+            }; 
+
         public static readonly Dictionary<State, uint> frames = new Dictionary<State, uint>
             {
                 {State.Casting, 7},
@@ -40,7 +51,8 @@ namespace DangerZone.Sprites
                 {State.Walking, 9},
                 {State.Swinging, 6},
                 {State.Shooting, 13},
-                {State.Dying, 6}
+                {State.Dying, 6},
+                {State.Standing, 1}
             };
 
         public static readonly Vector2 size = new Vector2(64, 64);
@@ -51,9 +63,9 @@ namespace DangerZone.Sprites
 
         public override void Draw(SpriteBatch spriteBatch, Vector2 position, uint delta)
         {
-            var row = (int)state*4;
-            row += (int) facing;
-            var column = (int)getFrame(delta, frames[state]);
+            var row = rows[state]*4;
+            row += (uint) facing;
+            var column = getFrame(delta, frames[state]);
 
             spriteBatch.Draw(Texture, position - Origin, GetSheetRectangle(size, column, row), Color);
         }

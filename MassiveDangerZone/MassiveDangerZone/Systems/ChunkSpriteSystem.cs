@@ -218,7 +218,7 @@ namespace MassiveDangerZone.Systems
             if (counts.ContainsKey(type))
             {
                 Point p = tileMap[counts[type]];
-                Rectangle source = Sprite.GetSheetRectangle(new Vector2(MassiveDangerZone.tileSize, MassiveDangerZone.tileSize), p.X, p.Y);
+                Rectangle source = Sprite.GetSheetRectangle(new Vector2(MassiveDangerZone.tileSize, MassiveDangerZone.tileSize), (uint)p.X, (uint)p.Y);
                 spriteBatch.Draw(groundTextures[type], pos, source, Color.White);
             }
         }
